@@ -1,0 +1,17 @@
+<?php
+
+return [
+    'adminEmail' => 'admin@example.com',
+
+    /**
+     * 站点配置
+     */
+    'upperLimit' => [
+        'category' => 15,
+        'tag' => 32,
+    ],
+
+    'member' => [
+        'avatar' => '@web/static/img/avatar.png',
+    ],
+];
