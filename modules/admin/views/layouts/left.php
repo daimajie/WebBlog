@@ -67,7 +67,7 @@
                         'items' => [
                             ['label' => '用户管理', 'icon' => 'circle-o', 'url' => ['/admin/member/user'],],
                             //['label' => '用户信息', 'icon' => 'circle-o', 'url' => ['/admin/member/setups'],],
-                            //['label' => '游客信息', 'icon' => 'circle-o', 'url' => ['#'],],
+                            //['label' => '关于我', 'icon' => 'circle-o', 'url' => ['#'],],
                         ],
                     ],
                     [

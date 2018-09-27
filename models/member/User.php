@@ -3,6 +3,7 @@
 namespace app\models\member;
 
 use Yii;
+use yii\behaviors\TimestampBehavior;
 
 /**
  * This is the model class for table "{{%user}}".
@@ -20,8 +21,15 @@ use Yii;
  * @property string $lasttime 最后登录时间
  * @property string $signip 最后登录ip
  */
-class User extends \yii\db\ActiveRecord
+class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
 {
+    public function behaviors()
+    {
+        return [
+            TimestampBehavior::class
+        ];
+    }
+
     /**
      * @inheritdoc
      */
@@ -75,6 +83,46 @@ class User extends \yii\db\ActiveRecord
     //生成auth_key
     public function generateAuthKey(){
         $this->auth_key = Yii::$app->security->generateRandomString();
+    }
+
+
+    //根据用户名或邮箱获取用户实例
+    public static function findByUsernameOrEmail($username){
+        $model = self::find()->where(['or', 'username=:user', 'email=:user'], [':user' => $username])->one();
+        if (!$model)
+            return null;
+        return $model;
+    }
+
+    //验证密码是否正确
+    public function validatePassword($password){
+        return Yii::$app->security->validatePassword($password, $this->password_hash);
+    }
+
+    public function validateAuthKey($authKey){
+        $ret = $this->getAuthKey() === $authKey;
+        if($ret){
+            //更新最后登录时间
+            $this->lasttime = time();
+            return $this->save(false);
+        }
+        return false;
+    }
+
+    public function getAuthKey(){
+        return $this->auth_key;
+    }
+
+    public function getId(){
+        return $this->id;
+    }
+
+    public static function findIdentityByAccessToken($token, $type = null){
+        return static::findOne(['access_token' => $token]);
+    }
+
+    public static function findIdentity($id){
+        return static::findOne($id);
     }
 
 

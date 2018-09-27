@@ -69,8 +69,6 @@ class UserForm extends User
         if( !$this->validate() )
             return false;
 
-        VarDumper::dump(\Yii::$app->request->post());die;
-
         if( !empty($this->password) ){
             $this->generatePasswordHash($this->password);
         }
