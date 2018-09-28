@@ -1,9 +1,11 @@
 <?php
 use yii\helpers\Html;
 use app\assets\AdminLteICheckAsset;
+use app\assets\LayerAsset;
 
 
 AdminLteICheckAsset::register($this);
+LayerAsset::register($this);
 ?>
 
 <?php $this->beginPage() ?>
@@ -52,16 +54,29 @@ AdminLteICheckAsset::register($this);
 </div>
 <!-- /.login-box -->
 
-<?php $this->endBody() ?>
-<script>
-    $(function () {
-        $('input').iCheck({
-            checkboxClass: 'icheckbox_square-blue',
-            radioClass: 'iradio_square-blue',
-            increaseArea: '20%' /* optional */
-        });
+<?php
+$this->endBody();
+$session = Yii::$app->session;
+$info = $session->hasFlash('info') ? $session->getFlash('info') : '';
 
+?>
+
+<script>
+$(function () {
+    //alert
+    var info = "<?= $info?>";
+    if( info.length > 0 )
+        layer.msg( info );
+
+
+    //iCheck
+    $('input').iCheck({
+        checkboxClass: 'icheckbox_square-blue',
+        radioClass: 'iradio_square-blue',
+        increaseArea: '20%' /* optional */
     });
+});
+
 </script>
 </body>
 </html>

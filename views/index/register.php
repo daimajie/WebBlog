@@ -85,7 +85,7 @@ $this->title = Yii::$app->name . ' - 注册新用户';
         <a href="#"><i class="fa fa-wechat"></i></a>
     </div>
 
-    <a href="login.html" class="text-center">已经拥有账户，现在去登录。</a>
+    <a href="<?= Url::to(['index/login'])?>" class="text-center">已经拥有账户，现在去登录。</a>
 </div>
 <!-- /.form-box -->
 
@@ -109,7 +109,7 @@ $jsStr = <<<JS
                     //邮件发送成功
                     setTimer(that);
                 }else{
-                    alert(d.errmsg);
+                    layer.msg(d.errmsg); 
                 }
                 
             }

@@ -93,7 +93,7 @@ class EmailService extends \yii\base\BaseObject
      * 发送邮件限速功能
      * @param int $num 单位时间内发送条数
      * @param int $term 单位时间
-     * @throws Exception
+     * @return bool
      */
     public static function sendLimit($num = 5, $term = 900){
         $session = Yii::$app->getSession();
@@ -113,7 +113,7 @@ class EmailService extends \yii\base\BaseObject
         //判断在一定时间内是否超过限制
         if($send_limit['count'] >= $num && ( time() - $send_limit['start'] ) < $send_limit['term']){
 
-            throw new Exception('发送邮件太多，休息一下吧。');
+            return false;
 
         }
 
@@ -124,6 +124,8 @@ class EmailService extends \yii\base\BaseObject
 
         $send_limit['count']++; //发送一次递增一次
         $session['send-limit'] = $send_limit;//保存会session
+
+        return true;
 
     }
 

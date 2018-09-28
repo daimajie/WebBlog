@@ -13,5 +13,8 @@ return [
 
     'member' => [
         'avatar' => '@web/static/img/avatar.png',
+        'passwordResetTokenExpire' => 60 * 10
     ],
+
+
 ];

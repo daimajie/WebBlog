@@ -85,6 +85,12 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
         $this->auth_key = Yii::$app->security->generateRandomString();
     }
 
+    //生成reset token
+    public function generatePasswordResetToken()
+    {
+        $this->password_reset_token = Yii::$app->security->generateRandomString() . '_' . time();
+    }
+
 
     //根据用户名或邮箱获取用户实例
     public static function findByUsernameOrEmail($username){
@@ -92,6 +98,39 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
         if (!$model)
             return null;
         return $model;
+    }
+
+    //验证用户名和邮箱是否匹配
+    public static function findByUsernameAndEmail($username, $email){
+        $model = self::find()->where([
+            'and',
+            'username=:username',
+            'email=:email'
+        ], [
+            ':username' => $username,
+            ':email' => $email
+        ])->one();
+
+        if (!$model)
+            return null;
+
+        return $model;
+    }
+
+    //根据reset password token 获取用户
+    public static function findByPasswordResetToken($token){
+        if (empty($token)) {
+            return null;
+        }
+
+        $timestamp = (int)substr($token, strrpos($token, '_') + 1);
+        $expire = Yii::$app->params['member']['passwordResetTokenExpire'];
+
+        if( $timestamp + $expire < time() ){
+            return null;
+        }
+
+        return static::find()->where(['password_reset_token' => $token])->limit(1)->one();
     }
 
     //验证密码是否正确
