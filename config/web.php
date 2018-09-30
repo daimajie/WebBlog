@@ -10,6 +10,7 @@ $config = [
     'basePath' => dirname(__DIR__),
     'defaultRoute' => 'index',
     'bootstrap' => ['log'],
+    'layout' => 'layout',
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
@@ -17,6 +18,9 @@ $config = [
     'modules' => [
         'admin' => [
             'class' => 'app\modules\admin\Module',
+        ],
+        'home' => [
+            'class' => 'app\modules\home\Module',
         ],
     ],
     'components' => [
@@ -65,6 +69,7 @@ $config = [
             'showScriptName' => false,
             'enableStrictParsing' => false,
             'rules' => [
+
             ],
         ],
         'assetManager' => [

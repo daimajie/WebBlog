@@ -67,7 +67,17 @@ class Chapter extends \yii\db\ActiveRecord
      */
     public function getSpecialArticles()
     {
-        return $this->hasMany(SpecialArticle::className(), ['chapter_id' => 'id']);
+        return $this->hasMany(SpecialArticle::className(), ['chapter_id' => 'id'])
+            ->andWhere(['recycle'=>0, 'draft'=>0])
+            ->select(['chapter_id', 'id', 'title', 'user_id', 'created_at'])
+            ->orderBy(['id'=>SORT_DESC]);
+    }
+    public function getSpecialArticlesTitle()
+    {
+        return $this->hasMany(SpecialArticle::className(), ['chapter_id' => 'id'])
+            ->andWhere(['recycle'=>0, 'draft'=>0])
+            ->select(['chapter_id', 'id', 'title', 'user_id', 'created_at'])
+            ->orderBy(['created_at'=>SORT_ASC]);
     }
 
     /**

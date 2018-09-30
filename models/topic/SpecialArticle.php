@@ -2,9 +2,13 @@
 
 namespace app\models\topic;
 
+use app\components\helper\Helper;
 use app\models\blog\Content;
 use Yii;
 use yii\base\Exception;
+use yii\helpers\Html;
+use yii\helpers\HtmlPurifier;
+use yii\helpers\VarDumper;
 
 
 /**
@@ -93,7 +97,20 @@ class SpecialArticle extends \yii\db\ActiveRecord
      */
     public function getContent()
     {
-        return $this->hasOne(Content::className(), ['article_id' => 'id']);
+        return $this->hasOne(Content::className(), ['article_id' => 'id'])
+            ->andWhere(['type' => static::ARTICLE_TYPE]);
+    }
+
+    /**
+     * 获取文章查询生成器
+     * @return \yii\db\ActiveQuery
+     */
+    public static function getArticlesQuery(){
+        return static::find()
+            ->where([
+                'draft' => 0,
+                'recycle' => 0,
+            ]);
     }
 
     /**
@@ -131,5 +148,66 @@ class SpecialArticle extends \yii\db\ActiveRecord
         if(!$this->delete()){
             throw new Exception('删除文章失败，请重试。');
         }
+    }
+
+
+    /**
+     * 获取专题文章 (文章详情)
+     * @param $special_id
+     * @param $article_id
+     * @return array
+     */
+    public static function getArticle($special_id, $article_id){
+        $query = static::getArticlesQuery()
+            ->andWhere(['special_id'=>$special_id])
+            ->with('content');
+
+        if($article_id > 0){
+            $query->andWhere(['id' => $article_id]);
+        }
+        else{
+            $query->orderBy(['id' => SORT_ASC])
+                ->limit(1);
+        }
+
+        $article = $query->asArray()->one();
+        $article_id = $article_id > 0 ? $article_id : $article['id'];
+        return [
+            'article' => $article,
+            'prevAndNext' => static::getPrevAndNext($special_id, $article_id)
+        ];
+
+    }
+
+    /**
+     * 获取上下一篇文章
+     * @param int $special_id
+     * @param int $article_id
+     * @return array
+     */
+    private static function getPrevAndNext($special_id, $article_id){
+
+        $prev = static::getArticlesQuery()
+            ->select(['id', 'title'])
+            ->where(['special_id'=>$special_id])
+            ->andWhere(['<', 'id', $article_id])
+            ->orderBy(['id'=>SORT_DESC])
+            ->limit(1)
+            ->asArray()
+            ->one();
+
+        $next = static::getArticlesQuery()
+            ->select(['id', 'title'])
+            ->where(['special_id'=>$special_id])
+            ->andWhere(['>', 'id', $article_id])
+            ->orderBy(['id'=>SORT_ASC])
+            ->limit(1)
+            ->asArray()
+            ->one();
+        return [
+            'prev' => $prev,
+            'next' => $next
+        ];
+
     }
 }

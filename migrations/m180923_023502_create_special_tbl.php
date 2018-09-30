@@ -20,6 +20,7 @@ class m180923_023502_create_special_tbl extends Migration
             'image' => $this->string(125)->notNull()->defaultValue('')->comment('专题图片'),
             'description' => $this->string(255)->notNull()->defaultValue('')->comment('专题描述'),
             'count' => $this->integer()->unsigned()->notNull()->defaultValue(0)->comment('收录文章数目'),
+            'comment' => $this->integer()->unsigned()->notNull()->defaultValue(0)->comment('评论数目'),
             'created_at' => $this->integer()->unsigned()->notNull()->defaultValue(0)->comment('创建时间'),
             'updated_at' => $this->integer()->unsigned()->notNull()->defaultValue(0)->comment('修改时间'),
         ], 'engine=innodb charset=utf8mb4');

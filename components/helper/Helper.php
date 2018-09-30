@@ -1,7 +1,18 @@
 <?php
 namespace app\components\helper;
+use Yii;
 
 class Helper {
+    
+    //格式化时间
+    public static function formatDate($date){
+        return Yii::$app->formatter->asRelativeTime($date);
+    }
+
+    //显示图片
+    public static function displyImage($img){
+        return '/' . $img;
+    }
 
     //判断时间格式
     public static function checkTime($time){

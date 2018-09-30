@@ -4,6 +4,7 @@ namespace app\models\topic;
 
 use Yii;
 use yii\behaviors\TimestampBehavior;
+use yii\data\Pagination;
 use yii\helpers\ArrayHelper;
 
 /**
@@ -71,8 +72,17 @@ class Special extends \yii\db\ActiveRecord
      */
     public function getSpecialArticles()
     {
-        return $this->hasMany(SpecialArticle::className(), ['special_id' => 'id']);
+        return $this->hasMany(SpecialArticle::class, ['special_id' => 'id']);
     }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getChapters()
+    {
+        return $this->hasMany(Chapter::class, ['special_id' => 'id']);
+    }
+
 
     /**
      * 获取最新专题
@@ -123,6 +133,41 @@ class Special extends \yii\db\ActiveRecord
      */
     public static function getBelongTo($spcial_id){
         return static::find()->select(['name'])->indexBy('id')->where(['id'=>$spcial_id])->asArray()->column();
+    }
+    
+    
+    /**
+     * 获取专题列表 （专题列表）
+     */
+    public static function getSpecials(){
+        $query = static::find();
+
+        $count = $query->count();
+        $pagination = new Pagination(['totalCount' => $count]);
+
+        $specials = $query->orderBy(['created_at'=>SORT_DESC])->offset($pagination->offset)->limit($pagination->limit)->asArray()->all();
+
+        return [
+            'specials' => $specials,
+            'pagination' => $pagination
+        ];
+    }
+
+    /**
+     * 获取指定专题 (专题详情 目录列表)
+     * @param int $special_id 专题id
+     * @return array
+     */
+    public static function getSpecial($special_id){
+        return static::find()
+            ->where(['id'=>$special_id])
+            ->with(['chapters'])
+            ->with(['chapters.specialArticlesTitle'])
+            ->orderBy(['id' => SORT_ASC])
+            ->asArray()
+            ->one();
+
+
     }
 
 

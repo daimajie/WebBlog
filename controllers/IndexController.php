@@ -71,6 +71,7 @@ class IndexController extends BaseController
      */
     public function actionIndex()
     {
+        $this->layout = 'layout';
         return $this->render('index');
     }
 
