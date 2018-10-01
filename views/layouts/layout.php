@@ -39,16 +39,11 @@ AppAsset::register($this);
                 <div  class="col-md-7">
                     <nav class="main-nav">
                         <ul>
-                            <li class=" current-menu-item menu-item-has-children">
-                                <a href="index.html">首页</a>
-                            </li>
-                            <li><a href="<?= Url::to(['/home/topic/special/index'])?>">『专题』</a></li>
-                            <li><a href="note.html">笔记</a></li>
-                            <li>|</li>
-                            <li><a href="about.html">关于我</a></li>
-                            <li><a href="contacts.html">联系我</a></li>
-                            <li>|</li>
-                            <li><a href="content.html">文章详情</a></li>
+                            <li><a href="<?= Url::to(['/index/index'])?>">首页</a></li>
+                            <li><a href="<?= Url::to(['/home/topic/special/index'])?>">专题</a></li>
+                            <li><a href="<?= Url::to(['/home/zones/notes/index'])?>">日记</a></li>
+                            <li><a href="<?= Url::to(['/index/about'])?>">关于我</a></li>
+                            <li><a href="<?= Url::to(['/index/contact'])?>">联系我</a></li>
                         </ul>
                         <a href="javascript:;" id="close-menu"> <i class="fa fa-close"></i></a>
                     </nav>
@@ -73,7 +68,9 @@ AppAsset::register($this);
 
 <!--content-->
 <?= $content?>
-
+<section class="instagram-follow">
+    <a href="https://github.com/daimajie/WebBlog"><h2> SOURCE ON GITHUB </h2></a>
+</section>
 <footer id="footer">
     <div class="footer-slide">
         <div class="swiper-container">
@@ -137,8 +134,14 @@ AppAsset::register($this);
         </svg>
 </script>
 
+<?php
+try{
+    \app\components\widgets\LayerAlert::widget();
+}catch (Exception $e){
 
-<?php $this->endBody() ?>
+}
+$this->endBody();
+?>
 </body>
 </html>
 <?php $this->endPage() ?>

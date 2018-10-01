@@ -66,8 +66,8 @@
                         'url' => '#',
                         'items' => [
                             ['label' => '用户管理', 'icon' => 'circle-o', 'url' => ['/admin/member/user'],],
-                            //['label' => '用户信息', 'icon' => 'circle-o', 'url' => ['/admin/member/setups'],],
-                            //['label' => '关于我', 'icon' => 'circle-o', 'url' => ['#'],],
+                            ['label' => '留言管理', 'icon' => 'circle-o', 'url' => ['/admin/member/contact'],],
+                            //['label' => '用户信息', 'icon' => 'circle-o', 'url' => ['/admin/member/info'],],
                         ],
                     ],
                     [
@@ -76,7 +76,7 @@
                         'url' => '#',
                         'items' => [
                             ['label' => '友情链接', 'icon' => 'circle-o', 'url' => ['/admin/setting/friend'],],
-                            //['label' => '基本设置', 'icon' => 'circle-o', 'url' => ['/admin/setting/setups'],],
+                            ['label' => '基本设置', 'icon' => 'circle-o', 'url' => ['/admin/setting/setups'],],
                             //['label' => '广告设置', 'icon' => 'circle-o', 'url' => ['#'],],
                         ],
                     ],

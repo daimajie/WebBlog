@@ -1,69 +1,61 @@
 <?php
-use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
+use app\components\helper\Helper;
+use yii\widgets\LinkPager;
 
-$this->title = '联系我';
+
+$this->title = '日记列表 - ' . Yii::$app->name;
 ?>
+
 <section class="section-content">
     <div class="container">
         <div class="row">
             <div class="col-sm-8 col-md-8">
-                <article class="contact-media">
-                    <h3 class="contact-media-title">联系我 -- </h3>
-                    <div class="bubble-line"></div>
-                    <div class="contact-content">
-                        <h3>
-                            填写您的联系方式和建议，然后提交。我会尽快与您联系的。
-                        </h3>
-                        <p>
-                            如果您有使用或其他问题，请填写以下表格与我们联系。 感谢您的来信。
-                        </p>
-                        <div class="contact-row">
-                            <?php $form = ActiveForm::begin([
-                                'id' => 'login-form',
-                            ]); ?>
-                                <div class="contact-form">
-                                    <?= $form->field($model, 'email')?>
-                                    <?= $form->field($model, 'subject')?>
-                                    <?= $form->field($model, 'body')->textarea(['style'=>"resize:none;"])?>
-                                    <?= $form->field($model,'verifyCode',[
-                                    ])->widget(yii\captcha\Captcha::class,[
-                                        'captchaAction'=>'index/captcha',
-                                        'options' => [
-                                            'placeholder'=>'验证码',
-                                        ],
-                                        'imageOptions' => [
-                                            'style'=>'width:150px;',
-                                        ],
-                                        'template' => "<div>{image}</div>{input}"
-                                    ])->label(false);?>
-
-                                </div>
-
-                                <div class="contact-submit">
-                                    <?= Html::submitButton('提交', ['class' => 'button']) ?>
-                                </div>
-                            <?php ActiveForm::end(); ?>
+                <?php
+                foreach ($notes['notes'] as $note):
+                ?>
+                <article class="content-item">
+                    <div class="entry-media">
+                        <div class="post-content">
+                            <div class="post-icon">
+                                <p></p>
+                            </div>
+                            <h2><?= Html::encode($note['title'])?></h2>
+                            <p><?= Html::encode($note['content'])?></p>
+                            <hr class="post-horizontal-rule">
+                            <br>
+                            <p class="sub-title"><?= Helper::formatDate($note['created_at'])?></p>
                         </div>
                     </div>
                 </article>
+                <?php
+                endforeach;
+                ?>
+                <div class="post-navigation">
+                    <?= LinkPager::widget([
+                        'pagination' => $notes['pagination'],
+                        'nextPageLabel' => '<i class="fa fa-chevron-right"></i>',
+                        'prevPageLabel' => '<i class="fa fa-chevron-left"></i>',
+                        'options' => ['class'=>false],
+                        'disableCurrentPageButton' => true
+                    ])?>
+                </div>
             </div>
             <div class="col-sm-4 sidebar">
                 <div class="widget">
-                    <h3 class="widget-title">Story about me</h3>
+                    <h3 class="widget-title">我的故事</h3>
                     <div class="bubble-line"></div>
 
                     <div class="widget-content">
                         <img src="/static/img/widget/about.jpg" alt="not image">
-                        <p>Hello I’m Jenny Kurto author of Letter town blog. This is my personal space which is like to share
-                            others. And i’m living New York city working and blogging.</p>
+                        <p>你好，我是Jenny Kurto的信镇博客的作者。这是我的个人空间，喜欢分享别人。我住在纽约市工作和写博客。</p>
                         <div class="widget-more">
-                            <a href="javascript:;" class="button">More story</a>
+                            <a href="javascript:;" class="button">查看更多</a>
                         </div>
                     </div>
                 </div>
                 <div class="widget">
-                    <h3 class="widget-title"> Category</h3>
+                    <h3 class="widget-title"> 分类</h3>
                     <div class="bubble-line"></div>
                     <div class="widget-content">
                         <ul>
@@ -89,7 +81,7 @@ $this->title = '联系我';
                     </div>
                 </div>
                 <div class="widget">
-                    <h3 class="widget-title"> Resent posts</h3>
+                    <h3 class="widget-title"> 热门文章</h3>
                     <div class="bubble-line"></div>
                     <div class="widget-content">
                         <div class="widget-recent">
@@ -189,7 +181,6 @@ $this->title = '联系我';
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
+            </div>			</div>
     </div>
 </section>

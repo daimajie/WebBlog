@@ -5,6 +5,8 @@ use yii\helpers\Url;
 use yii\helpers\Html;
 
 AppAsset::addCss($this, '/static/css/nav_style.css');
+
+$this->title = Html::encode($special['name']) . ' - ' . Yii::$app->name;
 ?>
 
 <section class="section-content" id="anchor">

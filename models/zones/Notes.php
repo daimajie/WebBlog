@@ -5,6 +5,7 @@ namespace app\models\zones;
 use Yii;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
+use yii\data\Pagination;
 
 /**
  * This is the model class for table "{{%notes}}".
@@ -62,6 +63,32 @@ class Notes extends \yii\db\ActiveRecord
             'created_at' => '创建时间',
             'updated_at' => '修改时间',
             'user_id' => '作者',
+        ];
+    }
+
+
+
+    /*
+     * front
+     */
+
+    /**
+     * 获取日记列表
+     */
+    public static function getNotes(){
+        $query = static::find();
+        $count = $query->count();
+
+        $pagination = new Pagination(['totalCount' => $count]);
+
+        $notes = $query->orderBy(['created_at' => SORT_DESC])
+            ->offset($pagination->offset)
+            ->limit($pagination->limit)
+            ->asArray()
+            ->all();
+        return [
+            'notes' => $notes,
+            'pagination' => $pagination
         ];
     }
 }

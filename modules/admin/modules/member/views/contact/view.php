@@ -4,19 +4,18 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\blog\Category */
+/* @var $model app\models\member\Contact */
 
-$this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => '分类列表', 'url' => ['index']];
+$this->title = $model->subject;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="category-view box box-primary">
+<div class="contact-view box box-primary">
     <div class="box-header">
-        <?= Html::a('修改', ['update', 'id' => $model->id], ['class' => 'btn btn-primary btn-flat']) ?>
+        <?= Html::a('返回', ['index'], ['class' => 'btn btn-primary btn-flat']) ?>
         <?= Html::a('删除', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger btn-flat',
             'data' => [
-                'confirm' => '您确定要删除该项目吗?',
+                'confirm' => '您确定要删除该留言吗?',
                 'method' => 'post',
             ],
         ]) ?>
@@ -27,17 +26,22 @@ $this->params['breadcrumbs'][] = $this->title;
             'model' => $model,
             'attributes' => [
                 'id',
-                'name',
-                'desc',
-                'count',
+                'email:email',
+                'subject',
+                'body',
                 [
-                    'attribute'=>'created_at',
-                    'format' => ['date', 'php:Y-m-d']
+                    'attribute' => 'visited',
+                    'value' => function($model){
+                        return $model->visited ? '已读' : '未读';
+                    }
                 ],
                 [
-                    'attribute'=>'updated_at',
-                    'format' => ['date', 'php:Y-m-d']
+                    'attribute' => 'user_id',
+                    'value' => function($model){
+                        return $model->user->username;
+                    }
                 ],
+                'created_at:datetime',
             ],
         ]) ?>
     </div>

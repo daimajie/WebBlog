@@ -8,12 +8,13 @@
 namespace app\controllers;
 
 use app\components\services\EmailService;
+use app\models\setting\Setups;
 use Yii;
 use yii\base\Exception;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use app\models\member\LoginForm;
-use app\models\member\ContactForm;
+use app\models\member\Contact;
 use yii\web\MethodNotAllowedHttpException;
 use yii\web\Response;
 use app\models\member\ForgetForm;
@@ -59,7 +60,7 @@ class IndexController extends BaseController
                 'class' => 'yii\captcha\CaptchaAction',
                 'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
                 'maxLength' => 4,
-                'minLength' => 4
+                'minLength' => 4,
             ],
         ];
     }
@@ -243,12 +244,16 @@ class IndexController extends BaseController
      * Displays contact page.
      *
      * @return Response|string
+     * @throws
      */
     public function actionContact()
     {
-        $model = new ContactForm();
-        if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail'])) {
-            Yii::$app->session->setFlash('contactFormSubmitted');
+        if(Yii::$app->user->isGuest)
+            Yii::$app->user->loginRequired();
+
+        $model = new Contact();
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            Yii::$app->session->setFlash('info', '留言成功,我们会尽快联系您的...');
 
             return $this->refresh();
         }
@@ -264,6 +269,8 @@ class IndexController extends BaseController
      */
     public function actionAbout()
     {
-        return $this->render('about');
+        return $this->render('about',[
+            'about' => Setups::find()->select(['about', 'email'])->where(['id'=>1])->asArray()->one(),
+        ]);
     }
 }
