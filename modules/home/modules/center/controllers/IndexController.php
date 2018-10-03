@@ -93,12 +93,22 @@ class IndexController extends BaseController
             //生成文件
             list($mime, $type) = explode(';', ltrim($string[0], 'data:'));
             list($tmp, $ext) = explode('/', $mime);
+
+            //判断是否允许的后缀
+            $allowMime = Yii::$app->params['upload']['allowMime'];
+            if( !in_array($ext, $allowMime) ) throw new Exception('图片格式不被允许.');
+
             $ret = UploadService::generateImage('avatar', $ext);
 
 
             //保存图片
             if(file_put_contents($ret['fullPath'], $binary) === false){
                 throw new Exception('上传文件失败，请重试。');
+            }
+
+            //删除原有头像
+            if(!empty(Yii::$app->user->identity->image)){
+                UploadService::deleteImage(Yii::$app->user->identity->image);
             }
 
             //写入数据库

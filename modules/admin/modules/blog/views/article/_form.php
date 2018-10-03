@@ -4,10 +4,8 @@ use yii\helpers\Url;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use app\assets\AdminLteICheckAsset;
-use app\assets\EditormdAsset;
+use app\components\widgets\UEditor;
 
-
-EditormdAsset::register($this);
 AdminLteICheckAsset::register($this);
 /* @var $this yii\web\View */
 /* @var $model app\models\blog\Article */
@@ -33,11 +31,9 @@ AdminLteICheckAsset::register($this);
                 '2' => '翻译'
         ]) ?>
 
-        <div class="form-group field-article-content">
-            <label class="control-label" for="article-content">文章内容</label>
-            <?= $form->field($model, 'content_str',['options'=>['id'=>'editormd']])->textarea() ?>
-            <div class="help-block"></div>
-        </div>
+        <?= $form->field($model, 'content_str')->widget(UEditor::class,[
+            'selector' => 'ueditor',
+        ]) ?>
 
         <?= $form->field($model, 'tag_arr', ['options'=>['id'=>'tags_container']])->checkboxList($tags)->hint('选择分类，展示可用标签。')?>
 

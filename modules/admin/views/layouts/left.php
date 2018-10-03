@@ -32,8 +32,13 @@
                 'items' => [
                     ['label' => 'MAIN NAVIGATION', 'options' => ['class' => 'header']],
                     [
+                        'label' => '控制台',
+                        'icon' => 'dashboard',
+                        'url' => ['/admin'],
+                    ],
+                    [
                         'label' => '博客管理',
-                        'icon' => 'circle-o',
+                        'icon' => 'edit',
                         'url' => '#',
                         'items' => [
                             ['label' => '分类管理', 'icon' => 'circle-o', 'url' => ['/admin/blog/category'],],
@@ -43,7 +48,7 @@
                     ],
                     [
                         'label' => '话题管理',
-                        'icon' => 'circle-o',
+                        'icon' => 'book',
                         'url' => '#',
                         'items' => [
                             ['label' => '专题管理', 'icon' => 'circle-o', 'url' => ['/admin/topic/special'],],
@@ -53,7 +58,7 @@
                     ],
                     [
                         'label' => '专属空间',
-                        'icon' => 'circle-o',
+                        'icon' => 'calendar',
                         'url' => '#',
                         'items' => [
                             ['label' => '日记管理', 'icon' => 'circle-o', 'url' => ['/admin/zones/notes'],],
@@ -62,7 +67,7 @@
                     ],
                     [
                         'label' => '成员管理',
-                        'icon' => 'circle-o',
+                        'icon' => 'user',
                         'url' => '#',
                         'items' => [
                             ['label' => '用户管理', 'icon' => 'circle-o', 'url' => ['/admin/member/user'],],
@@ -72,7 +77,7 @@
                     ],
                     [
                         'label' => '站点管理',
-                        'icon' => 'circle-o',
+                        'icon' => 'pie-chart',
                         'url' => '#',
                         'items' => [
                             ['label' => '友情链接', 'icon' => 'circle-o', 'url' => ['/admin/setting/friend'],],
@@ -82,7 +87,7 @@
                     ],
                     [
                         'label' => '站点维护',
-                        'icon' => 'circle-o',
+                        'icon' => 'laptop',
                         'url' => '#',
                         'items' => [
                             //['label' => '系统日志', 'icon' => 'circle-o', 'url' => ['#'],],

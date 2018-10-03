@@ -20,12 +20,12 @@ class UserForm extends User
             [['re_password'], 'compare', 'compareAttribute' => 'password', 'on'=>[self::RESET_PASSWORD]],
             [['secure_email'], 'checkEmail', 'on'=>[self::RESET_PASSWORD]],
 
-            [['username', 'password', 'secure_email', 'email_captcha'], 'required', 'on'=>[self::RESET_EMAIL]],
+            [['username', 'password', 'email_captcha'], 'required', 'on'=>[self::RESET_EMAIL]],
             [['password'], 'checkPassword', 'on'=>[self::RESET_EMAIL]],
             [['secure_email'], 'unique', 'targetAttribute' => 'email', 'on'=>[self::RESET_EMAIL]],
             [['email_captcha'], 'checkEmailCaptcha', 'on'=>[self::RESET_EMAIL]],
 
-            [['secure_email'], 'email', 'on'=>[self::RESET_EMAIL,self::RESET_PASSWORD]],
+            //[['secure_email'], 'email', 'on'=>[self::RESET_EMAIL,self::RESET_PASSWORD]],
             [['password'], 'string', 'min'=>6, 'on'=>[self::RESET_EMAIL,self::RESET_PASSWORD]],
         ];
     }

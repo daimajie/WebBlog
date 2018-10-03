@@ -74,7 +74,7 @@ var options =
                     layer.msg(d.errmsg);
                 }
                 //刷新页面
-                
+                window.location.reload();
             }
         });
     });

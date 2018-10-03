@@ -21,5 +21,6 @@ return [
     'upload' => [
         'upRoot' => "@webroot/static/upload",
         'upUrl' => "@web/static/upload",
+        'allowMime' => ['jpg','jpeg','png','gif'],
     ],
 ];

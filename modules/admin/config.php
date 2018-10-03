@@ -7,6 +7,7 @@
  */
 return [
     'layout' => 'main',
+    'defaultRoute' => 'index',
     'modules' => [
         'blog' => [
             'class' => 'app\modules\admin\modules\blog\Module',

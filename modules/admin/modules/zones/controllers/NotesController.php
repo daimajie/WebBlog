@@ -2,6 +2,7 @@
 
 namespace app\modules\admin\modules\zones\controllers;
 
+use app\components\actions\UploadAction;
 use Yii;
 use app\models\zones\Notes;
 use app\models\zones\SearchNotes;

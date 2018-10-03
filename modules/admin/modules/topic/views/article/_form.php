@@ -4,11 +4,10 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use app\assets\Select2Asset;
 use yii\helpers\Url;
-use app\assets\EditormdAsset;
+use app\components\widgets\UEditor;
 
 
 Select2Asset::register($this);
-EditormdAsset::register($this);
 
 /* @var $this yii\web\View */
 /* @var $model app\models\topic\SpecialArticle */
@@ -33,11 +32,9 @@ EditormdAsset::register($this);
             'id' => 'select_chapter',
         ]) ?>
 
-        <div class="form-group field-article-content">
-            <label class="control-label" for="article-content">文章内容</label>
-            <?= $form->field($model, 'content_str',['options'=>['id'=>'editormd']])->textarea() ?>
-            <div class="help-block"></div>
-        </div>
+        <?= $form->field($model, 'content_str')->widget(UEditor::class,[
+            'selector' => 'ueditor',
+        ]) ?>
 
         <?= $form->field($model, 'draft')->hiddenInput(['id'=>'draft_input'])->label(false)?>
 
@@ -51,15 +48,6 @@ EditormdAsset::register($this);
 
 <?php
 $js = <<<SCRIPT
-    var editor = editormd("editormd", {
-        path : "/static/libs/editormd/lib/",
-        width   : "100%",
-        height  : 640,
-        syncScrolling : "single"
-        
-    });
-
-
     //点击发布
     $('#draft_btn').on('click', function(){
         $('#draft_input').val(1).closest('form').submit();

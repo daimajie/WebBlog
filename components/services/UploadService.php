@@ -31,6 +31,20 @@ class UploadService
         ];
     }
 
+    /**
+     * 删除图片
+     * @param $image string
+     * @return bool
+     */
+    public static function deleteImage($image){
+        if(empty($image)) return false;
+
+        $upRoot = Yii::getAlias(Yii::$app->params['upload']['upRoot']);
+
+        return @unlink($upRoot .'/'. $image);
+
+    }
+
 
 
 }
