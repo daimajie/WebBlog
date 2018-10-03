@@ -2,7 +2,10 @@
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
 
-$this->title = '联系我';
+
+$this->title = '联系我 - ' . Html::encode($this->params['seo']['name']);
+$this->params['keywords'] = '';
+$this->params['description'] = '';
 ?>
 <section class="section-content">
     <div class="container">

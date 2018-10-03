@@ -6,7 +6,7 @@
  * Time: 22:51
  */
 namespace app\modules\admin\controllers;
-use yii\web\Controller;
+use app\controllers\BaseController as Controller;
 
 class BaseController extends Controller
 {

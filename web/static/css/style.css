@@ -935,6 +935,7 @@ article.content-item .post-footer .content-social.grid a + a {
   width: 100%;
   height: auto;
   padding: 30px;
+  padding-top: 0px;
 }
 
 .full-width-content img {
@@ -3623,4 +3624,19 @@ article.content-item .post-footer .content-social.grid a + a {
 .post-header{
   padding-top: 0;
   margin-top:0;
+}
+.topbar{
+  background-color:#eee;
+}
+.topbar > .container{
+  padding:0 55px;
+}
+#operate{
+  float: right;
+}
+#operate li{
+  float: left;
+}
+#operate a{
+  padding: 5px 3px;
 }

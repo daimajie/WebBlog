@@ -12,8 +12,11 @@ return [
     ],
 
     'member' => [
-        'avatar' => '@web/static/img/avatar.png',
+        'avatar' => '/static/img/avatar.png',
         'passwordResetTokenExpire' => 60 * 10
+    ],
+    'article' => [
+        'cover' => '/static/img/cover.png',
     ],
 
 

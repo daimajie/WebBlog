@@ -3,8 +3,13 @@ use app\components\helper\Helper;
 use yii\helpers\Url;
 use yii\widgets\LinkPager;
 use yii\helpers\Html;
+use yii\helpers\ArrayHelper;
 
-$this->title = '专题列表 - ' . Yii::$app->name;
+
+
+$this->title = '专题列表 - ' . Html::encode($this->params['seo']['name']);
+$this->params['keywords'] = Html::encode(implode(',',ArrayHelper::getColumn($specials, 'name')));
+$this->params['description'] = Html::encode($this->params['seo']['description']);
 ?>
 
 <section class="section-content">

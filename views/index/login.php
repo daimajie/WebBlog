@@ -3,7 +3,9 @@ use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Url;
 
-$this->title = Yii::$app->name . ' - 用户登录';
+$this->title = '用户登录 - ' . Html::encode($this->params['seo']['name']);
+$this->params['keywords'] = '';
+$this->params['description'] = '';
 ?>
 
 <!-- /.login-logo -->

@@ -1,46 +1,96 @@
 <?php
 use yii\helpers\Html;
+use app\components\helper\Helper;
+use yii\widgets\LinkPager;
+use yii\helpers\Url;
 
 
-$this->title = '关于我 - ' . Html::encode($this->params['seo']['name']);
-$this->params['keywords'] = '';
-$this->params['description'] = '';
+$this->title = '文章列表 - ' . Html::encode($this->params['seo']['name']);
+$this->params['keywords'] = $this->params['seo']['keywords'];
+$this->params['description'] = $this->params['seo']['description'];
 ?>
 
+<!--content-->
 <section class="section-content">
     <div class="container">
         <div class="row">
             <div class="col-sm-8 col-md-8">
-                <article class="content-item">
-                    <div class="entry-media">
-                        <div class="about-title">
-                            <h3> 我的故事</h3>
+                <?php
+                foreach($articles as $article):
+                ?>
+                    <article class="content-item">
+                        <div class="entry-media">
+                            <div class="post-title">
+                                <h2>
+                                    <a href="<?= Url::to(['view', 'article_id'=>$article['id']])?>">
+                                        <?= Html::encode($article['title'])?>
+                                    </a>
+                                </h2>
+                                <div class="entry-date">
+                                    <ul>
+                                        <li>
+                                            分类 -
+                                            <a href='#'><?= Html::encode($article['categoryName']['name'])?></a>
+                                        </li>
+                                        <li>发布 - <?= Helper::formatDate($article['created_at'])?></li>
+                                        <li>评论 - <?= $article['comment']?></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="bubble-line"></div>
+                            <div class="post-content">
+                                <?php
+                                if( !empty($article['image']) ):
+                                ?>
+                                <img src="<?= $article['image']?>" alt=" image">
+                                <?php endif;?>
+                                <p><?= Html::encode($article['brief'])?></p>
+                            </div>
+                            <div class="bubble-line"></div>
+                            <div class="post-footer">
+                                <div class="row">
+                                    <div class="col-sm-5">
+                                        <a href="<?= Url::to(['view', 'article_id'=>$article['id']])?>" class="button">查看详情</a>
+                                    </div>
+                                    <div class="col-sm-7 text-right">
+                                        <div class="content-social">
+                                            <a href="javascript:;"><i class="fa fa-qq"></i><span>QQ</span></a>
+                                            <a href="javascript:;"><i class="fa fa-weibo"></i><span>微博</span></a>
+                                            <a href="javascript:;"><i class="fa fa-wechat"></i><span>微信</span></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="bubble-line"></div>
-                        <div class="post-content about">
-                            <p><?= Html::encode($about['about'])?></p>
-                            <hr class="post-horizontal-rule">
-                            <p class="sub-title"><?= $about['email']?></p>
-                        </div>
-                    </div>
-                </article>
+                    </article>
+                <?php
+                endforeach;
+                ?>
+                <div class="post-navigation">
+                    <?= LinkPager::widget([
+                        'pagination' => $pagination,
+                        'nextPageLabel' => '<i class="fa fa-chevron-right"></i>',
+                        'prevPageLabel' => '<i class="fa fa-chevron-left"></i>',
+                        'options' => ['class'=>false],
+                        'disableCurrentPageButton' => true
+                    ])?>
+                </div>
             </div>
             <div class="col-sm-4 sidebar">
                 <div class="widget">
-                    <h3 class="widget-title">Story about me</h3>
+                    <h3 class="widget-title">我的故事</h3>
                     <div class="bubble-line"></div>
 
                     <div class="widget-content">
                         <img src="/static/img/widget/about.jpg" alt="not image">
-                        <p>Hello I’m Jenny Kurto author of Letter town blog. This is my personal space which is like to share
-                            others. And i’m living New York city working and blogging.</p>
+                        <p>你好，我是Jenny Kurto的信镇博客的作者。这是我的个人空间，喜欢分享别人。我住在纽约市工作和写博客。</p>
                         <div class="widget-more">
-                            <a href="javascript:;" class="button">More story</a>
+                            <a href="javascript:;" class="button">查看更多</a>
                         </div>
                     </div>
                 </div>
                 <div class="widget">
-                    <h3 class="widget-title"> Category</h3>
+                    <h3 class="widget-title"> 分类</h3>
                     <div class="bubble-line"></div>
                     <div class="widget-content">
                         <ul>
@@ -66,7 +116,7 @@ $this->params['description'] = '';
                     </div>
                 </div>
                 <div class="widget">
-                    <h3 class="widget-title"> Resent posts</h3>
+                    <h3 class="widget-title"> 热门文章</h3>
                     <div class="bubble-line"></div>
                     <div class="widget-content">
                         <div class="widget-recent">
@@ -170,3 +220,4 @@ $this->params['description'] = '';
         </div>
     </div>
 </section>
+<!--/content-->

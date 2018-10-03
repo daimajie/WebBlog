@@ -8,7 +8,7 @@ $config = [
     'name' => 'WebBlog',
     'language' => 'zh-CN',
     'basePath' => dirname(__DIR__),
-    'defaultRoute' => 'index',
+    'defaultRoute' => 'home/blog/index',
     'bootstrap' => ['log'],
     'layout' => 'layout',
     'aliases' => [
@@ -69,6 +69,16 @@ $config = [
             'showScriptName' => false,
             'enableStrictParsing' => false,
             'rules' => [
+                //博客
+                //'index' => 'home/blog/index/index',
+
+                //专题
+                //'special/index' => 'home/topic/special/index',
+                //'special/view' => 'home/topic/special/view',
+
+                //日记
+                //'note/index' => 'home/zones/notes/index',
+
 
             ],
         ],

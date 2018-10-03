@@ -41,11 +41,11 @@ class Setups extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'keywords', 'description'/*, 'image'*/, 'email', 'about'], 'required'],
+            [['name', 'keywords', 'description', 'sign'/*, 'image'*/, 'email', 'about'], 'required'],
             [['name'], 'string', 'max' => 12],
             [['keywords'], 'string', 'max' => 255],
             [['description', 'about'], 'string', 'max' => 512],
-            [['image'], 'string', 'max' => 128],
+            [['image', 'sign'], 'string', 'max' => 125],
             [['email'], 'string', 'max' => 64],
         ];
     }
@@ -58,6 +58,7 @@ class Setups extends \yii\db\ActiveRecord
         return [
             'id' => '主键',
             'name' => '站点名称',
+            'sign' => '签名',
             'keywords' => '关键字',
             'description' => '站点描述',
             'image' => '图片',

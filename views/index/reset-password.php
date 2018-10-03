@@ -3,7 +3,9 @@ use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Url;
 
-$this->title = Yii::$app->name . ' - 设置新密码';
+$this->title = '设置新密码 - ' . Html::encode($this->params['seo']['name']);
+$this->params['keywords'] = '';
+$this->params['description'] = '';
 ?>
 
 <!-- /.login-logo -->

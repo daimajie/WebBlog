@@ -12,7 +12,6 @@ use app\models\setting\Setups;
 use Yii;
 use yii\base\Exception;
 use yii\filters\AccessControl;
-use yii\filters\VerbFilter;
 use app\models\member\LoginForm;
 use app\models\member\Contact;
 use yii\web\MethodNotAllowedHttpException;
@@ -38,12 +37,12 @@ class IndexController extends BaseController
                     ],
                 ],
             ],
-            'verbs' => [
+            /*'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'logout' => ['post'],
                 ],
-            ],
+            ],*/
         ];
     }
 
@@ -70,11 +69,11 @@ class IndexController extends BaseController
      *
      * @return string
      */
-    public function actionIndex()
+    /*public function actionIndex()
     {
         $this->layout = 'layout';
         return $this->render('index');
-    }
+    }*/
 
     /**
      * Login action.

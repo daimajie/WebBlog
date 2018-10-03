@@ -22,6 +22,8 @@ $this->params['breadcrumbs'][] = '修改设置';
 
             <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
+            <?= $form->field($model, 'sign')->textInput(['maxlength' => true]) ?>
+
             <?= $form->field($model, 'keywords')->textarea(['maxlength' => true]) ?>
 
             <?= $form->field($model, 'description')->textarea(['maxlength' => true]) ?>

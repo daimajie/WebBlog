@@ -4,7 +4,9 @@ use app\components\helper\Helper;
 use yii\widgets\LinkPager;
 
 
-$this->title = '日记列表 - ' . Yii::$app->name;
+$this->title = '日记列表 - ' . Html::encode($this->params['seo']['name']);
+$this->params['keywords'] = '';
+$this->params['description'] = '';
 ?>
 
 <section class="section-content">

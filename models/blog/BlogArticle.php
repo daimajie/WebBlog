@@ -6,6 +6,7 @@ use Yii;
 use yii\base\Exception;
 use yii\behaviors\TimestampBehavior;
 use yii\behaviors\BlameableBehavior;
+use yii\data\Pagination;
 
 /**
  * This is the model class for table "{{%blog_article}}".
@@ -106,6 +107,7 @@ class BlogArticle extends \yii\db\ActiveRecord
         return $this->hasOne(Category::className(), ['id' => 'category_id']);
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -127,7 +129,8 @@ class BlogArticle extends \yii\db\ActiveRecord
      */
     public function getContent()
     {
-        return $this->hasOne(Content::className(), ['article_id' => 'id']);
+        return $this->hasOne(Content::className(), ['article_id' => 'id'])
+            ->where(['type'=>static::ARTICLE_TYPE]);
     }
 
     /**
@@ -177,6 +180,113 @@ class BlogArticle extends \yii\db\ActiveRecord
         if(!$this->delete()){
             throw new Exception('删除文章失败，请重试。');
         }
+    }
+    
+    
+    /*
+     * home
+     */
+    public function getCategoryName()
+    {
+        return $this->hasOne(Category::className(), ['id' => 'category_id'])
+            ->select(['name', 'id']);
+    }
+
+    /**
+     * 获取查询生成器
+     * @return \yii\db\ActiveQuery
+     */
+    public static function getArticleQuery(){
+        return static::find()
+            ->where([
+                'and',
+                ['!=', 'draft', 1],
+                ['!=', 'recycle', 1],
+            ]);
+
+    }
+    /**
+     * 获取文章列表
+     * @param $category_id
+     * @param $tag_id
+     */
+    public static function getArticleList($category_id, $tag_id){
+        $query = static::getArticleQuery();
+
+        if($category_id > 0){
+            $query->andWhere(['category_id'=>$category_id]);
+
+            if($tag_id > 0){
+                $article_ids = TagArticle::find()->where(['tag_id'=>$tag_id])->select(['blog_article_id'])->column();
+                $query->andWhere(['in', 'id', $article_ids]);
+            }
+        }
+
+        $count = $query->count();
+
+        $pagination = new Pagination(['totalCount' => $count]);
+
+        $articles = $query->orderBy(['created_at'=>SORT_DESC])
+            ->with('categoryName')
+            ->select(['id', 'title', 'brief', 'image','created_at','comment', 'category_id'])
+            ->offset($pagination->offset)
+            ->limit($pagination->limit)
+            ->asArray()
+            ->all();
+        return [
+            'articles' => $articles,
+            'pagination' => $pagination
+        ];
+
+    }
+
+    /**
+     * 文章详情
+     * @param $article_id
+     * @return array|null|\yii\db\ActiveRecord
+     */
+    public static function getArticle($article_id){
+        $article = static::getArticleQuery()
+            ->andWhere(['id' => $article_id])
+            ->select(['id','title','visited','comment','praise','collect','created_at','category_id','user_id'])
+            ->with(['content','categoryName'])
+            ->asArray()
+            ->one();
+        return $article;
+    }
+
+    /**
+     * 上一页下一页
+     */
+    public static function getPrevNext($article_id){
+        $prev = static::getArticleQuery()
+            ->orderBy(['id'=>SORT_ASC])
+            ->where(['>', 'id', $article_id])
+            ->select(['id','title'])
+            ->asArray()
+            ->one();
+
+        $next = static::getArticleQuery()
+            ->orderBy(['id'=>SORT_DESC])
+            ->Where(['<', 'id', $article_id])
+            ->select(['id', 'title'])
+            ->asArray()
+            ->one();
+        return ['prev' => $prev, 'next' => $next];
+    }
+
+    /**
+     * 获取相关文章推荐
+     */
+    public static function getRelated($category_id, $article_id){
+        return static::getArticleQuery()
+            ->where(['category_id'=> $category_id])
+            ->andWhere(['!=', 'id', $article_id])
+            ->select(['id','title','created_at','image','brief'])
+            ->orderBy(['id'=>SORT_DESC])
+            ->limit(3)
+            ->asArray()
+            ->all();
     }
 
 

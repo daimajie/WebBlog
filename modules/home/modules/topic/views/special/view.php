@@ -6,7 +6,9 @@ use yii\helpers\Html;
 
 AppAsset::addCss($this, '/static/css/nav_style.css');
 
-$this->title = Html::encode($special['name']) . ' - ' . Yii::$app->name;
+$this->title = Html::encode($special['name']) . ' - ' . $this->params['seo']['name'];
+$this->params['keywords'] = Html::encode($special['name']);
+$this->params['description'] = Html::encode($special['description']);
 ?>
 
 <section class="section-content" id="anchor">
@@ -81,8 +83,8 @@ $this->title = Html::encode($special['name']) . ' - ' . Yii::$app->name;
                                             <hr class="post-horizontal-rule">
                                             <div id="prev_next" class="post-navigation">
                                                 <ul>
-                                                    <li><a href="<?= Url::current(['article_id'=>$content['prevAndNext']['prev']['id'],'#' => 'anchor'])?>"> <i class="fa fa-chevron-left"></i> </a></li>
-                                                    <li><a href="<?= Url::current(['article_id'=>$content['prevAndNext']['next']['id'],'#' => 'anchor'])?>"> <i class="fa fa-chevron-right"></i> </a></li>
+                                                    <li><a href="<?= empty($content['prevAndNext']['prev']) ? 'javascript:void(0);' : Url::current(['article_id'=>$content['prevAndNext']['prev']['id'],'#' => 'anchor']);?>"> <i class="fa fa-chevron-left"></i> </a></li>
+                                                    <li><a href="<?= empty($content['prevAndNext']['next']) ? 'javascript:void(0);' : Url::current(['article_id'=>$content['prevAndNext']['next']['id'],'#' => 'anchor']);?>"> <i class="fa fa-chevron-right"></i> </a></li>
                                                 </ul>
                                             </div>
                                         </article>

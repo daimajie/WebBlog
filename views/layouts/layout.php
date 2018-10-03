@@ -2,9 +2,12 @@
 use yii\helpers\Html;
 use yii\helpers\Url;
 use app\assets\AppAsset;
+use yii\bootstrap\Nav;
+use yii\bootstrap\NavBar;
 
 AppAsset::register($this);
-
+$this->params['name'] = Html::encode($this->params['seo']['name']);
+$this->params['sign'] = Html::encode($this->params['seo']['sign']);
 ?>
 
 <?php $this->beginPage() ?>
@@ -13,8 +16,8 @@ AppAsset::register($this);
 <head>
     <meta charset="<?= Yii::$app->charset ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
-    <meta name="keywords" content="HTML5,CSS3,HTML,Template,Themeton" >
-    <meta name="description" content="Cloudy Town - Simple Blog HTML Template">
+    <meta name="keywords" content="<?= $this->params['keywords']?>" >
+    <meta name="description" content="<?= $this->params['description']?>">
     <meta name="author" content="Themeton">
     <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
@@ -26,12 +29,34 @@ AppAsset::register($this);
 <body>
 <?php $this->beginBody() ?>
 <header id="header">
+    <div class="container-fluid">
+        <div class="topbar">
+            <div class="container">
+                <div class="row">
+                    <?php
+                    $isGuest = Yii::$app->user->isGuest;
+                    $username = '游客';
+                    if(!$isGuest)$username = Yii::$app->user->identity->username;
+                    echo Nav::widget([
+                        'options' => ['id' => 'operate'],
+                        'items' => [
+                            ['label' => '登录', 'url' => ['/index/login'],'visible'=>$isGuest],
+                            ['label' => '注册', 'url' => ['/index/register'],'visible'=>$isGuest],
+                            ['label' => '个人中心', 'url' => ['/home/center/index'],'visible'=>!$isGuest],
+                            ['label' => '退出(' . $username . ')', 'url' => ['/index/logout'],'visible'=>!$isGuest],
+                        ],
+                    ]);
+                    ?>
+                </div>
+            </div>
+        </div>
+    </div>
 <!--    data-bg-image="/static/img/bg-header.jpg"-->
     <div class="logo">
         <h1>
-            <a href="index.html">Cloudy town</a>
+            <a href="/"><?= $this->params['name']?></a>
         </h1>
-        <p> A problem is a chance for you to do your best.</p>
+        <p> <?= $this->params['sign']?></p>
     </div>
     <div class="menu-container">
         <div class="container">
@@ -39,7 +64,7 @@ AppAsset::register($this);
                 <div  class="col-md-7">
                     <nav class="main-nav">
                         <ul>
-                            <li><a href="<?= Url::to(['/index/index'])?>">首页</a></li>
+                            <li><a href="<?= Url::to(['/'])?>">首页</a></li>
                             <li><a href="<?= Url::to(['/home/topic/special/index'])?>">专题</a></li>
                             <li><a href="<?= Url::to(['/home/zones/notes/index'])?>">日记</a></li>
                             <li><a href="<?= Url::to(['/index/about'])?>">关于我</a></li>
@@ -50,16 +75,9 @@ AppAsset::register($this);
                 </div>
                 <div class=" col-md-5 h-search">
                     <form class="search_form">
-                        <input type="text" name="2" placeholder="Search and hit enter...">
+                        <input type="text" name="2" placeholder="搜索...">
                         <button type="submit"><i class="fa fa-search"></i></button>
                     </form>
-                    <div class="head-social">
-                        <a class="socials" href="#"><i class="fa fa-facebook"></i></a>
-                        <a class="socials" href="#"><i class="fa fa-twitter"></i></a>
-                        <a class="socials" href="#"><i class="fa fa-pinterest"></i></a>
-                        <a class="socials" href="#"><i class="fa fa-instagram"></i></a>
-                        <a class="socials" href="#"><i class="fa fa-rss"></i></a>
-                    </div>
                 </div>
             </div>
         </div>

@@ -3,7 +3,9 @@ use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Url;
 
-$this->title = Yii::$app->name . ' - 注册新用户';
+$this->title = '注册新用户 - ' . Html::encode($this->params['seo']['name']);
+$this->params['keywords'] = '';
+$this->params['description'] = '';
 ?>
 <div class="register-box-body">
     <p class="login-box-msg">注册一个新账户</p>

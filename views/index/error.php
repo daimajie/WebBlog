@@ -7,7 +7,9 @@
 
 use yii\helpers\Html;
 
-$this->title = $name;
+$this->title = $name .' - '. Html::encode($this->params['seo']['name']);
+$this->params['keywords'] = '';
+$this->params['description'] = '';
 ?>
 <div class="site-error">
 

@@ -16,6 +16,7 @@ class m181001_095839_create_setups_tbl extends Migration
         $this->createTable(static::TBL_NAME, [
             'id' => $this->primaryKey()->unsigned()->comment('主键'),
             'name' => $this->string(12)->notNull()->defaultValue('')->comment('站点名称'),
+            'sign' => $this->string(125)->notNull()->defaultValue('')->comment('签名'),
             'keywords' => $this->string(255)->notNull()->defaultValue('')->comment('关键字'),
             'description' => $this->string(512)->notNull()->defaultValue('')->comment('站点描述'),
             'image' => $this->string('128')->notNull()->defaultValue('')->comment('图片'),
@@ -29,6 +30,7 @@ class m181001_095839_create_setups_tbl extends Migration
         $this->insert(static::TBL_NAME, [
             'id' => 1,
             'name' => 'web blog',
+            'sign' => 'Keep your face to the sunshine, and you cannot see a shadow.',
             'keywords' => 'blog,min blog,web blog.',
             'description' => 'my blog',
             'image' => '/static/img/widget/about.jpg',
