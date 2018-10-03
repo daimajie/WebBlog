@@ -4,14 +4,16 @@ use Yii;
 
 class Helper {
     
+    //显示图片
+    public static function showImage($image){
+        if(empty($image)) return false;
+        $upUrl = Yii::getAlias(Yii::$app->params['upload']['upUrl']);
+        return $upUrl .'/'. $image;
+    }
+    
     //格式化时间
     public static function formatDate($date){
         return Yii::$app->formatter->asRelativeTime($date);
-    }
-
-    //显示图片
-    public static function displyImage($img){
-        return '/' . $img;
     }
 
     //判断时间格式

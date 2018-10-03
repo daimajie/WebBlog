@@ -18,6 +18,8 @@ return [
     'article' => [
         'cover' => '/static/img/cover.png',
     ],
-
-
+    'upload' => [
+        'upRoot' => "@webroot/static/upload",
+        'upUrl' => "@web/static/upload",
+    ],
 ];

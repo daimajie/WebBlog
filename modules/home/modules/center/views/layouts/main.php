@@ -1,15 +1,16 @@
 <?php
 use yii\helpers\Html;
 use yii\helpers\Url;
+use app\components\helper\Helper;
 
 dmstr\web\AdminLteAsset::register($this);
 
 //站点名称
 $name = $this->params['seo']['name'];
-//用户头像
-$avatar = empty($user['image']) ? Yii::$app->params['member']['avatar'] : $user['image'];
 //user
 $user = Yii::$app->user->identity;
+//用户头像
+$avatar = empty($user['image']) ? Yii::$app->params['member']['avatar'] : Helper::showImage($user['image']);
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
