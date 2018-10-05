@@ -15,9 +15,13 @@ return [
         'avatar' => '/static/img/avatar.png',
         'passwordResetTokenExpire' => 60 * 10
     ],
+
+    //封面上传小部件的默认底图
     'article' => [
         'cover' => '/static/img/cover.png',
     ],
+
+
     'upload' => [
         'upRoot' => "@webroot/static/upload",
         'upUrl' => "@web/static/upload",

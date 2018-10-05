@@ -38,7 +38,7 @@ $this->params['description'] = Html::encode($this->params['seo']['description'])
                                 <div class="post-content">
                                     <?php
                                     if(!empty($special['image']))
-                                        echo "<img src='" . Helper::displyImage($special['image']) . "' alt='". $special['name'] ."'>";
+                                        echo "<img src='" . Helper::showImage($special['image']) . "' alt='". $special['name'] ."'>";
                                     else
                                         echo '';
                                     ?>

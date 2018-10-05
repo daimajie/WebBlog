@@ -33,7 +33,11 @@ Select2Asset::register($this);
         ]) ?>
 
         <?= $form->field($model, 'content_str')->widget(UEditor::class,[
-            'selector' => 'ueditor',
+            'selector' => 'UEditor',
+
+            //ueditor设置
+            'clientOptions' => [
+            ]
         ]) ?>
 
         <?= $form->field($model, 'draft')->hiddenInput(['id'=>'draft_input'])->label(false)?>

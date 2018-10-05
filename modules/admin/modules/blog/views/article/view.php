@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use app\components\helper\Helper;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\blog\Article */
@@ -41,7 +42,17 @@ $this->params['breadcrumbs'][] = $this->title;
                 'id',
                 'title',
                 'brief',
-                'image',
+                [
+                    'attribute' => 'image',
+                    'format' => 'html',
+                    'value' => function($model){
+                        if(empty($model->image)){
+                            return ' - ';
+                        }else{
+                            return Html::img(Helper::showImage($model->image), ['width'=>150]);
+                        }
+                    }
+                ],
                 [
                     'attribute' => 'type',
                     'value' => function($model){

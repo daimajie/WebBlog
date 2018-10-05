@@ -3,10 +3,17 @@
 use yii\helpers\Url;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use app\components\widgets\imageInput\imageInput;
 use app\assets\AdminLteICheckAsset;
 use app\components\widgets\UEditor;
+use app\components\helper\Helper;
 
 AdminLteICheckAsset::register($this);
+
+//选择图片组件的默认图片
+$cover = Yii::$app->params['article']['cover'];
+
+
 /* @var $this yii\web\View */
 /* @var $model app\models\blog\Article */
 /* @var $form yii\widgets\ActiveForm */
@@ -22,7 +29,10 @@ AdminLteICheckAsset::register($this);
 
         <?= $form->field($model, 'brief')->textarea(['maxlength' => true]) ?>
 
-        <?php $form->field($model, 'image')->fileInput(['maxlength' => true]) ?>
+        <?= $form->field($model, 'image')->widget(imageInput::class,[
+            'defaultImage' => !empty($model->image) ? Helper::showImage($model->image) : $cover,
+            'uploadUrl' => Url::to(['upload']),
+        ]) ?>
 
 
         <?= $form->field($model, 'type')->radioList([
@@ -32,7 +42,11 @@ AdminLteICheckAsset::register($this);
         ]) ?>
 
         <?= $form->field($model, 'content_str')->widget(UEditor::class,[
-            'selector' => 'ueditor',
+            'selector' => 'UEditor',
+
+            //ueditor设置
+            'clientOptions' => [
+            ]
         ]) ?>
 
         <?= $form->field($model, 'tag_arr', ['options'=>['id'=>'tags_container']])->checkboxList($tags)->hint('选择分类，展示可用标签。')?>
@@ -52,14 +66,7 @@ AdminLteICheckAsset::register($this);
 
 <?php
 $js = <<<SCRIPT
-    var editor = editormd("editormd", {
-        path : "/static/libs/editormd/lib/",
-        width   : "100%",
-        height  : 640,
-        syncScrolling : "single"
-
-        
-    });
+    
 
     //点击发布
     $('#draft_btn').on('click', function(){

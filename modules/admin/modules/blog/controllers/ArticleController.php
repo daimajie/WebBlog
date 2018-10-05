@@ -12,6 +12,7 @@ use app\modules\admin\controllers\BaseController;
 use yii\base\Exception;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use app\components\widgets\imageInput\actions\UploadAction;
 
 /**
  * ArticleController implements the CRUD actions for Article model.
@@ -31,6 +32,17 @@ class ArticleController extends BaseController
                     'discard' => ['POST']
                 ],
             ],
+        ];
+    }
+
+    public function actions()
+    {
+        return [
+            'upload' => [
+                'class' => UploadAction::class,
+                'field' => 'file',
+                'subDir' => 'cover'
+            ]
         ];
     }
 

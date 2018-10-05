@@ -10,13 +10,19 @@ use yii\helpers\Url;
 ?>
 
 <div class="notes-form box box-primary">
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin([
+            //'enableClientValidation' => false
+    ]); ?>
     <div class="box-body table-responsive">
 
         <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 
         <?= $form->field($model, 'content')->widget(UEditor::class,[
-                'selector' => 'ueditor',
+            'selector' => 'UEditor',
+
+            //ueditor设置
+            'clientOptions' => [
+            ]
         ]) ?>
 
     </div>

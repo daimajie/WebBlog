@@ -2,6 +2,8 @@
 
 namespace app\models\topic;
 
+use app\components\helper\Helper;
+use app\components\services\UploadService;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\data\Pagination;
@@ -43,7 +45,7 @@ class Special extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'description'], 'required'],
+            [['name', 'description','image'], 'required'],
             [['name'], 'string', 'max' => 32],
             [['image'], 'string', 'max' => 125],
             [['description'], 'string', 'max' => 255],
@@ -81,6 +83,23 @@ class Special extends \yii\db\ActiveRecord
     public function getChapters()
     {
         return $this->hasMany(Chapter::class, ['special_id' => 'id']);
+    }
+
+    /**
+     * 修改专题
+     */
+    public function renew(){
+        if( !$this->validate() )
+            return false;
+
+        //判断是否修改了专题图片
+        if($this->getOldAttribute('image') && $this->image !== $this->getOldAttribute('image')){
+            //删除旧图片
+            UploadService::deleteImage($this->getOldAttribute('image'));
+        }
+
+        return $this->save(false);
+
     }
 
 

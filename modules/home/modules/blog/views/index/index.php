@@ -42,7 +42,7 @@ $this->params['description'] = $this->params['seo']['description'];
                                 <?php
                                 if( !empty($article['image']) ):
                                 ?>
-                                <img src="<?= $article['image']?>" alt=" image">
+                                <img src="<?= Helper::showImage($article['image'])?>" alt=" image">
                                 <?php endif;?>
                                 <p><?= Html::encode($article['brief'])?></p>
                             </div>

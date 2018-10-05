@@ -2,16 +2,17 @@
 
 namespace app\modules\admin\modules\topic\controllers;
 
+use app\components\widgets\imageInput\actions\UploadAction;
 use Yii;
 use app\models\topic\Special;
 use app\models\topic\SearchSpecial;
 use app\modules\admin\controllers\BaseController;
 use yii\base\Exception;
-use yii\helpers\VarDumper;
 use yii\web\MethodNotAllowedHttpException;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\Response;
+use app\components\services\UploadService;
 
 /**
  * SpecialController implements the CRUD actions for Special model.
@@ -30,6 +31,17 @@ class SpecialController extends BaseController
                     'delete' => ['POST'],
                 ],
             ],
+        ];
+    }
+
+    public function actions()
+    {
+        return [
+            'upload' => [
+                'class' => UploadAction::class,
+                'field' => 'file',
+                'subDir' => 'cover'
+            ]
         ];
     }
 
@@ -88,13 +100,17 @@ class SpecialController extends BaseController
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
+        if ($model->load(Yii::$app->request->post())) {
+
+            if($model->renew()){
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
+
         }
+        return $this->render('update', [
+            'model' => $model,
+        ]);
+
     }
 
     /**
@@ -105,7 +121,14 @@ class SpecialController extends BaseController
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
+
+        //判断是否修改了专题图片
+        if($model->image){
+            //删除旧图片
+            UploadService::deleteImage($model->image);
+        }
+        $model->delete();
 
         return $this->redirect(['index']);
     }

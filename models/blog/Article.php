@@ -8,6 +8,7 @@
 
 namespace app\models\blog;
 
+use app\components\services\UploadService;
 use yii\base\Exception;
 use yii\helpers\VarDumper;
 use Yii;
@@ -98,6 +99,12 @@ class Article extends BlogArticle {
             if( ($old_category_id !== $this->category_id) ){
                 Category::updateAllCounters(['count'=> -1], ['id'=> $old_category_id]);
                 Category::updateAllCounters(['count'=> 1], ['id'=> $this->category_id]);
+            }
+
+            //判断是否修改了图片
+            if($this->image && $this->image !== $this->getOldAttribute('image')){
+                //删除原有图片
+                UploadService::deleteImage($this->getOldAttribute('image'));
             }
 
             //如果是回收站编辑的文章

@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use app\components\helper\Helper;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\topic\SearchSpecial */
@@ -26,7 +27,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 'id',
                 'name',
-                'image',
                 'count',
                  [
                          'attribute'=>'created_at',

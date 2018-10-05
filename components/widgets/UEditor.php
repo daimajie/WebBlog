@@ -2,6 +2,8 @@
 namespace app\components\widgets;
 
 use app\assets\UEditorAsset;
+use yii\helpers\Html;
+use yii\helpers\VarDumper;
 use yii\widgets\InputWidget;
 use yii\base\InvalidConfigException;
 /**
@@ -10,7 +12,8 @@ use yii\base\InvalidConfigException;
 class UEditor extends InputWidget
 {
     public $clientOptions = [];
-    public $selector;
+
+    public $selector; //UEditor选择器
 
 
     public function run ()
@@ -20,11 +23,11 @@ class UEditor extends InputWidget
 
         // 构建html结构
         if ($this->hasModel()) {
-            //合并选项
-            $this->options = array_merge($this->options, $this->clientOptions);
 
             //输出html
-            echo '<script id="'. $this->selector .'" type="text/plain"></script>';
+            echo Html::activeTextarea($this->model, $this->attribute, [
+                'id' => $this->selector
+            ]);
         } else {
             throw new InvalidConfigException("'model' must be specified.");
         }
@@ -34,9 +37,14 @@ class UEditor extends InputWidget
         $view = $this->getView();
         UEditorAsset::register($view);
 
+        $clintOptions = json_encode($this->clientOptions);
+
         //初始化编辑器
         $jsStr = <<<JS
-            var ue = UE.getEditor("$this->selector",{});
+            var ue = UE.getEditor("{$this->selector}","{$clintOptions}");
+
+            //给文本框添加id
+            $(ue.textarea).attr('id', "{$this->options['id']}");
 JS;
 
         $view->registerJs($jsStr);

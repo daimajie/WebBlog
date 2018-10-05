@@ -2,6 +2,7 @@
 
 namespace app\models\blog;
 
+use app\components\services\UploadService;
 use Yii;
 use yii\base\Exception;
 use yii\behaviors\TimestampBehavior;
@@ -140,6 +141,11 @@ class BlogArticle extends \yii\db\ActiveRecord
 
         $transaction = static::getDb()->beginTransaction();
         try{
+            //删除图片
+            if( $this->image ){
+                UploadService::deleteImage($this->image);
+            }
+
             //删除标签关联数据
             $this->deleteTagRelate();
 
