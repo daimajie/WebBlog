@@ -9,6 +9,9 @@ use yii\base\Widget;
 class Comment extends Widget
 {
     public $article;
+    public $fullwidth = false;
+
+
 
     public function run ()
     {
@@ -19,6 +22,7 @@ class Comment extends Widget
 
         return $this->render('index',[
             'article' => $this->article,
+            'fullwidth' => $this->fullwidth
         ]);
     }
 

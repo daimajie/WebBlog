@@ -1,10 +1,15 @@
 <?php
 use yii\helpers\Url;
+
+
+//以下两个样式用于适配宽屏模板，
+$type = $fullwidth ? 'style="padding: 0 9px 0 2px;"' : '';
+$comment_type = $fullwidth ? 'style="margin: 10px 10px 60px 5px;"' : '';
 ?>
 
 
 <!--reply-->
-<div class="post-content comment" id="comment_form">
+<div <?= $type?> class="post-content comment" id="comment_form">
     <form>
         <div class="comment-form ">
             <p class="input-name"> 评论文章</p>
@@ -17,7 +22,7 @@ use yii\helpers\Url;
 </div>
 <!--/reply-->
 <!--comment-->
-<div id="comments" class="comments-area">
+<div <?= $comment_type?> id="comments" class="comments-area">
     <div class="comments-wrapper text-center"><b>Loading...</b></div>
 </div>
 

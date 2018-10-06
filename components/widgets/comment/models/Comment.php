@@ -1,6 +1,7 @@
 <?php
 namespace app\components\widgets\comment\models;
 use app\components\helper\Helper;
+use app\models\blog\BlogArticle;
 use app\models\comment\Comment as CommentModel;
 use app\models\blog\Content;
 use yii\base\Exception;
@@ -107,6 +108,8 @@ class Comment extends CommentModel
             $transaction->rollBack();
             return false;
         }
+
+
     }
 
 

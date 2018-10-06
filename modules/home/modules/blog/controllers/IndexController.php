@@ -41,12 +41,14 @@ class IndexController extends  BaseController
         return [
             'comment' => [
                 'class' => CommentAction::class,
+                'type' => 'blog'
             ],
             'get-comments' => [
                 'class' => GetCommentsAction::class,
             ],
             'delete-comment' => [
                 'class' => DeleteCommentAction::class,
+                'type' => 'blog'
             ]
         ];
     }
@@ -69,7 +71,8 @@ class IndexController extends  BaseController
         $prevNext = BlogArticle::getPrevNext($article_id);
         $related = BlogArticle::getRelated($article['category_id'], $article['id']);
 
-        //VarDumper::dump($article, 10, 1);die;
+        //查阅累加
+        BlogArticle::updateAllCounters(['visited'=>1], ['id'=>$article_id]);
 
         return $this->render('view',[
             'article' => $article,

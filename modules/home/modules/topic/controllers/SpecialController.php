@@ -42,12 +42,14 @@ class SpecialController extends BaseController
         return [
             'comment' => [
                 'class' => CommentAction::class,
+                'type' => 'special'
             ],
             'get-comments' => [
                 'class' => GetCommentsAction::class,
             ],
             'delete-comment' => [
                 'class' => DeleteCommentAction::class,
+                'type' => 'special'
             ]
         ];
     }
@@ -71,6 +73,9 @@ class SpecialController extends BaseController
         if($special_id <= 0) throw new BadRequestHttpException('请求错误。');
 
         $content = SpecialArticle::getArticle($special_id, $article_id);
+
+        //查阅累加
+        SpecialArticle::updateAllCounters(['visited'=>1], ['id'=>$article_id]);
 
         return $this->render('view',[
             'special' => $special,

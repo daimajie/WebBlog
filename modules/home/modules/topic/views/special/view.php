@@ -33,7 +33,7 @@ $this->params['description'] = Html::encode($special['description']);
                         <div class="post-content full-width">
                             <div class="container">
                                 <div class="row">
-                                    <div class="col-sm-12  col-md-4 sidebar "><!-- hidden-xs hidden-sm -->
+                                    <div class="col-sm-12 col-md-4 sidebar "><!-- hidden-xs hidden-sm -->
                                         <div class="hidden-md hidden-lg">
                                             <span id="sidebar_btn" class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
                                         </div>
@@ -76,12 +76,10 @@ $this->params['description'] = Html::encode($special['description']);
                                                         <li>发布 - <?= Helper::formatDate($special['created_at'])?></li>
                                                     </ul>
                                                 </div>
-                                                <hr class="post-horizontal-rule">
                                             </div>
                                             <div class="post-body">
                                                 <?= Html::encode($content['article']['content']['content'])?>
                                             </div>
-                                            <hr class="post-horizontal-rule">
                                             <div id="prev_next" class="post-navigation">
                                                 <ul>
                                                     <li><a href="<?= empty($content['prevAndNext']['prev']) ? 'javascript:void(0);' : Url::current(['article_id'=>$content['prevAndNext']['prev']['id'],'#' => 'anchor']);?>"> <i class="fa fa-chevron-left"></i> </a></li>
@@ -99,120 +97,25 @@ $this->params['description'] = Html::encode($special['description']);
                             </div>
                         </div>
                         <div class="bubble-line"></div>
-                        <div class="content-item">
-                            <div class="row">
-                                <div class="post-footer col-sm-12 col-md-4 text-left">
-                                    <div class="content-social">
-                                        <a href="javascript:;"><i class="fa fa-qq"></i> <span>QQ</span></a>
-                                        <a href="javascript:;"><i class="fa fa-wechat"></i> <span>微信</span></a>
-                                        <a href="javascript:;"><i class="fa fa-weibo"></i> <span>微博</span></a>
-                                    </div>
-                                </div>
-                                <div class="col-sm-12 col-md-8">
-                                    <?= Comment::widget([
-                                        'article' => $content['article']
-
-                                    ])?>
-                                    <!--reply
-                                    <div class="post-content comment">
-                                        <form>
-                                            <div class="comment-form ">
-                                                <p class="input-name"> 评论文章</p>
-                                                <textarea placeholder=""></textarea>
-                                            </div>
-                                            <div class="comment-submit">
-                                                <a href="javascript:;" class="button">发射</a>
-                                            </div>
-                                        </form>
-                                    </div>
-                                    <div id="comments" class="comments-area">
-                                        <div class="comments-wrapper">
-                                            <ol class="comment-list">
-                                                <li id="comment-5">
-                                                    <article>
-                                                        <div class="comment-avatar">
-                                                            <img src="/static/img/footer/photos5.jpg" alt="no image">
-                                                        </div>
-                                                        <div class="comment-body">
-                                                            <div class="meta-data">
-                                                                <span class="comment-author">Mercy Wagon</span>
-                                                                <span class="comment-date"> March 8. 2015 at 9:00pm </span>
-                                                            </div>
-                                                            <div class="comment-content">
-                                                                <p>Holisticly maximize scalable e-tailers vis-a-vis
-                                                                    extensible outsourcing. Authoritatively synthesize
-                                                                    standards compliant alignments before user-centric
-                                                                    applications. .</p>
-                                                            </div>
-
-                                                        </div>
-                                                    </article>
-
-                                                    <ol class="children">
-                                                        <li class="comment byuser comment-author-tommy odd alt depth-2" id="comment-17">
-                                                            <article>
-                                                                <div class="comment-avatar">
-                                                                    <img src="/static/img/content/about1.jpg" alt="image">
-                                                                </div>
-                                                                <div class="comment-body">
-                                                                    <div class="meta-data">
-                                                                        <span class="comment-author">Tommy Morgan</span>
-                                                                        <span class="comment-date"> March 8. 2015 at 9:00pm </span>
-
-                                                                    </div>
-                                                                    <div class="comment-content">
-                                                                        <p>Professionally parallel task standards compliant
-                                                                            strategic theme areas with performance based
-                                                                            customer service.
-                                                                        </p>
-                                                                    </div>
-
-                                                                </div>
-                                                            </article>
-
-                                                        </li>
-                                                    </ol>
-                                                </li>
-
-                                                <li class="comment" id="comment-6">
-
-                                                    <article>
-                                                        <div class="comment-avatar">
-                                                            <img src="/static/img/footer/photos5.jpg" alt="image">
-                                                        </div>
-
-                                                        <div class="comment-body">
-                                                            <div class="meta-data">
-                                                                <span class="comment-author">Mercy Wagon</span>
-                                                                <span class="comment-date"> March 8. 2015 at 9:00pm </span>
-                                                            </div>
-                                                            <div class="comment-content">
-                                                                <p>Authoritatively architect excellent experiences after
-                                                                    interoperable e-commerce. Phosfluorescently leverage
-                                                                    existing client-centered e-commerce after effective
-                                                                    synergy.</p>
-                                                            </div>
-
-                                                        </div>
-                                                    </article>
-
-                                                </li>
-                                            </ol>
-
+                        <div class="post-footer full-width">
+                            <div class="container">
+                                <div class="row">
+                                    <div style="padding-top: 15px;" class="col-sm-4 text-left">
+                                        <div class="content-social">
+                                            <a href="javascript:;"><i class="fa fa-qq"></i> <span>QQ</span></a>
+                                            <a href="javascript:;"><i class="fa fa-wechat"></i> <span>微信</span></a>
+                                            <a href="javascript:;"><i class="fa fa-weibo"></i> <span>微博</span></a>
                                         </div>
                                     </div>
-                                    <div class="post-navigation">
-                                        <ul>
-                                            <li><span>1</span></li>
-                                            <li><a href="javascript:;">2</a></li>
-                                            <li><a href="javascript:;">3</a></li>
-                                            <li><a href="javascript:;"> <i class="fa fa-chevron-right"></i> </a></li>
-                                        </ul>
-                                    </div>-->
+                                    <div class="col-sm-8">
+                                        <?= Comment::widget([
+                                            'article' => $content['article'],
+                                            'fullwidth' => true,
+                                        ])?>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </article>
             </div>
