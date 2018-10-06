@@ -3,16 +3,55 @@ namespace app\modules\home\modules\topic\controllers;
 use app\models\topic\Special;
 use app\models\topic\SpecialArticle;
 use app\modules\home\controllers\BaseController;
-use yii\base\Exception;
-use yii\helpers\VarDumper;
 use Yii;
 use yii\web\BadRequestHttpException;
-use yii\web\MethodNotAllowedHttpException;
-use yii\web\NotFoundHttpException;
-use yii\web\Response;
+use app\components\widgets\comment\actions\CommentAction;
+use app\components\widgets\comment\actions\GetCommentsAction;
+use app\components\widgets\comment\actions\DeleteCommentAction;
+use yii\filters\AccessControl;
+use yii\filters\VerbFilter;
 
 class SpecialController extends BaseController
 {
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['comment', 'delete-comment'],
+                'rules' => [
+                    [
+                        'actions' => ['comment', 'delete-comment'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'comment' => ['post'],
+                    'delete-comment' => ['post'],
+                ],
+            ],
+        ];
+    }
+    //小部件提供方法
+    public function actions()
+    {
+        return [
+            'comment' => [
+                'class' => CommentAction::class,
+            ],
+            'get-comments' => [
+                'class' => GetCommentsAction::class,
+            ],
+            'delete-comment' => [
+                'class' => DeleteCommentAction::class,
+            ]
+        ];
+    }
+
     //专题列表
     public function actionIndex(){
         $data = Special::getSpecials();

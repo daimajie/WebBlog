@@ -2,6 +2,7 @@
 use yii\helpers\Html;
 use yii\helpers\Url;
 use app\components\helper\Helper;
+use app\components\widgets\comment\Comment;
 
 $this->title = '文章列表 - ' . Html::encode($this->params['seo']['name']);
 $this->params['keywords'] = '';
@@ -44,9 +45,9 @@ $cover = Yii::$app->params['article']['cover'];
                         <div class="post-footer">
                             <div class="row">
                                 <div class="col-sm-5 s-tags">
-                                    <a href="javascript:;">收藏</a>
-                                    <a href="javascript:;">点赞</a>
-                                    <a href="javascript:;">赞助</a>
+                                    <?php foreach($article['tags'] as $tag):?>
+                                    <a href="javascript:;"><?= $tag['name']?></a>
+                                    <?php endforeach;?>
                                 </div>
                                 <div class="col-sm-7 text-right">
                                     <div class="content-social">
@@ -83,109 +84,10 @@ $cover = Yii::$app->params['article']['cover'];
                 <?php endif;?>
                 <article class="content-item">
                     <div class="entry-media">
-                        <div class="post-title comment-title">
-                            <h3>3 Comments</h3>
-                        </div>
-                        <div class="bubble-line"></div>
-                        <div id="comments" class="comments-area">
-                            <div class="comments-wrapper">
-                                <ol class="comment-list">
-                                    <li id="comment-5">
-                                        <article>
-                                            <div class="comment-avatar">
-                                                <img src="/static/img/footer/photos5.jpg" alt="no image">
-                                            </div>
-                                            <div class="comment-body">
-                                                <div class="meta-data">
-                                                    <span class="comment-author">Mercy Wagon</span>
-                                                    <span class="comment-date"> March 8. 2015 at 9:00pm </span>
-                                                </div>
-                                                <div class="comment-content">
-                                                    <p>Holisticly maximize scalable e-tailers vis-a-vis
-                                                        extensible outsourcing. Authoritatively synthesize
-                                                        standards compliant alignments before user-centric
-                                                        applications. .</p>
-                                                </div>
+                        <?= Comment::widget([
+                                'article' => $article
 
-                                            </div>
-                                        </article>
-
-                                        <ol class="children">
-                                            <li class="comment byuser comment-author-tommy odd alt depth-2" id="comment-17">
-                                                <article>
-                                                    <div class="comment-avatar">
-                                                        <img src="/static/img/content/about1.jpg" alt="image">
-                                                    </div>
-                                                    <div class="comment-body">
-                                                        <div class="meta-data">
-                                                            <span class="comment-author">Tommy Morgan</span>
-                                                            <span class="comment-date"> March 8. 2015 at 9:00pm </span>
-
-                                                        </div>
-                                                        <div class="comment-content">
-                                                            <p>Professionally parallel task standards compliant
-                                                                strategic theme areas with performance based
-                                                                customer service.
-                                                            </p>
-                                                        </div>
-
-                                                    </div>
-                                                </article>
-
-                                            </li><!-- #comment-## -->
-                                        </ol><!-- .children -->
-                                    </li><!-- #comment-## -->
-
-                                    <li class="comment" id="comment-6">
-
-                                        <article>
-                                            <div class="comment-avatar">
-                                                <img src="/static/img/footer/photos5.jpg" alt="image">
-                                            </div>
-
-                                            <div class="comment-body">
-                                                <div class="meta-data">
-                                                    <span class="comment-author">Mercy Wagon</span>
-                                                    <span class="comment-date"> March 8. 2015 at 9:00pm </span>
-                                                </div>
-                                                <div class="comment-content">
-                                                    <p>Authoritatively architect excellent experiences after
-                                                        interoperable e-commerce. Phosfluorescently leverage
-                                                        existing client-centered e-commerce after effective
-                                                        synergy.</p>
-                                                </div>
-
-                                            </div>
-                                        </article>
-
-                                    </li><!-- #comment-## -->
-                                </ol><!-- .comment-list -->
-
-                            </div>
-                        </div>
-                    </div>
-                </article>
-                <article class="content-item">
-                    <div class="entry-media">
-                        <div class="post-title">
-                            <h2>Leave a reply</h2>
-                        </div>
-                        <div class="bubble-line"></div>
-                        <div class="post-content comment">
-                            <form>
-                                <div class="comment-form ">
-                                    <p class="input-name"> NAME (required) </p>
-                                    <input type="text" name="name" placeholder="">
-                                    <p class="input-name"> E-MAIL(required) </p>
-                                    <input type="text" name="name" placeholder="">
-                                    <p class="input-name"> COMMENT</p>
-                                    <textarea placeholder=""></textarea>
-                                </div>
-                                <div class="comment-submit">
-                                    <a href="javascript:;" class="button">post comment</a>
-                                </div>
-                            </form>
-                        </div>
+                        ])?>
                     </div>
                 </article>
             </div>

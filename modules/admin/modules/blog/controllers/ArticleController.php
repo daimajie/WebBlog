@@ -42,7 +42,7 @@ class ArticleController extends BaseController
                 'class' => UploadAction::class,
                 'field' => 'file',
                 'subDir' => 'cover'
-            ]
+            ],
         ];
     }
 

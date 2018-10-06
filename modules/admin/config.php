@@ -24,6 +24,9 @@ return [
         'member' => [
             'class' => 'app\modules\admin\modules\member\Module',
         ],
+        'comment' => [
+            'class' => 'app\modules\admin\modules\comment\Module',
+        ],
 
     ],
     'components' => [

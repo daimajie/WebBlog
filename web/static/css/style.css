@@ -1029,7 +1029,7 @@ article.content-item .post-footer .content-social.grid a + a {
   font-size: 14px;
   font-family: 'Merriweather';
   line-height: 28px;
-  margin: -10px 0 20px 0;
+  margin: -10px 0 10px 0;
 }
 
 #comments .comments-wrapper ol.comment-list li ul,
@@ -3639,4 +3639,7 @@ article.content-item .post-footer .content-social.grid a + a {
 }
 #operate a{
   padding: 5px 3px;
+}
+.reply-wrap{
+    margin-bottom: 5px;
 }

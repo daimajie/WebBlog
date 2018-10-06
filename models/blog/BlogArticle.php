@@ -122,7 +122,9 @@ class BlogArticle extends \yii\db\ActiveRecord
      */
     public function getTags()
     {
-        return $this->hasMany(Tag::className(), ['id' => 'tag_id'])->via('tagArticle');
+        return $this->hasMany(Tag::className(), ['id' => 'tag_id'])
+            ->via('tagArticle')
+            ->select(['id','name']);
     }
 
     /**
@@ -255,7 +257,7 @@ class BlogArticle extends \yii\db\ActiveRecord
         $article = static::getArticleQuery()
             ->andWhere(['id' => $article_id])
             ->select(['id','title','visited','comment','praise','collect','created_at','category_id','user_id'])
-            ->with(['content','categoryName'])
+            ->with(['content','categoryName','tags'])
             ->asArray()
             ->one();
         return $article;

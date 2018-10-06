@@ -3,6 +3,7 @@ use app\assets\AppAsset;
 use app\components\helper\Helper;
 use yii\helpers\Url;
 use yii\helpers\Html;
+use app\components\widgets\comment\Comment;
 
 AppAsset::addCss($this, '/static/css/nav_style.css');
 
@@ -98,9 +99,9 @@ $this->params['description'] = Html::encode($special['description']);
                             </div>
                         </div>
                         <div class="bubble-line"></div>
-                        <div class="post-footer">
+                        <div class="content-item">
                             <div class="row">
-                                <div class="col-sm-12 col-md-4 text-left">
+                                <div class="post-footer col-sm-12 col-md-4 text-left">
                                     <div class="content-social">
                                         <a href="javascript:;"><i class="fa fa-qq"></i> <span>QQ</span></a>
                                         <a href="javascript:;"><i class="fa fa-wechat"></i> <span>微信</span></a>
@@ -108,7 +109,22 @@ $this->params['description'] = Html::encode($special['description']);
                                     </div>
                                 </div>
                                 <div class="col-sm-12 col-md-8">
-                                    <!--comment-->
+                                    <?= Comment::widget([
+                                        'article' => $content['article']
+
+                                    ])?>
+                                    <!--reply
+                                    <div class="post-content comment">
+                                        <form>
+                                            <div class="comment-form ">
+                                                <p class="input-name"> 评论文章</p>
+                                                <textarea placeholder=""></textarea>
+                                            </div>
+                                            <div class="comment-submit">
+                                                <a href="javascript:;" class="button">发射</a>
+                                            </div>
+                                        </form>
+                                    </div>
                                     <div id="comments" class="comments-area">
                                         <div class="comments-wrapper">
                                             <ol class="comment-list">
@@ -154,9 +170,9 @@ $this->params['description'] = Html::encode($special['description']);
                                                                 </div>
                                                             </article>
 
-                                                        </li><!-- #comment-## -->
-                                                    </ol><!-- .children -->
-                                                </li><!-- #comment-## -->
+                                                        </li>
+                                                    </ol>
+                                                </li>
 
                                                 <li class="comment" id="comment-6">
 
@@ -180,26 +196,19 @@ $this->params['description'] = Html::encode($special['description']);
                                                         </div>
                                                     </article>
 
-                                                </li><!-- #comment-## -->
-                                            </ol><!-- .comment-list -->
+                                                </li>
+                                            </ol>
 
                                         </div>
                                     </div>
-                                    <!--/comment-->
-                                    <!--reply-->
-                                    <div class="post-content comment">
-                                        <form>
-                                            <div class="comment-form ">
-                                                <p class="input-name"> 评论文章</p>
-                                                <textarea placeholder=""></textarea>
-                                            </div>
-                                            <div class="comment-submit">
-                                                <a href="javascript:;" class="button">发射</a>
-                                            </div>
-                                        </form>
-                                    </div>
-                                    <!--/reply-->
-
+                                    <div class="post-navigation">
+                                        <ul>
+                                            <li><span>1</span></li>
+                                            <li><a href="javascript:;">2</a></li>
+                                            <li><a href="javascript:;">3</a></li>
+                                            <li><a href="javascript:;"> <i class="fa fa-chevron-right"></i> </a></li>
+                                        </ul>
+                                    </div>-->
                                 </div>
                             </div>
                         </div>
