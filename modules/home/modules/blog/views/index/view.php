@@ -50,10 +50,14 @@ $cover = Yii::$app->params['article']['cover'];
                                     <?php endforeach;?>
                                 </div>
                                 <div class="col-sm-7 text-right">
-                                    <div class="content-social">
-                                        <a href="javascript:;"><i class="fa fa-qq"></i><span>QQ</span></a>
-                                        <a href="javascript:;"><i class="fa fa-weibo"></i><span>微博</span></a>
-                                        <a href="javascript:;"><i class="fa fa-wechat"></i><span>微信</span></a>
+                                    <div
+                                            class="content-social grid bdsharebuttonbox text-right"
+                                            data-tag="share_1"
+                                    >
+                                        <a data-cmd="tqq">QQ</a>
+                                        <a data-cmd="weixin">微信</a>
+                                        <a data-cmd="weibo">微博</a>
+                                        <a>分享: </a>
                                     </div>
                                 </div>
                             </div>
@@ -255,3 +259,23 @@ $cover = Yii::$app->params['article']['cover'];
         </div>
     </div>
 </section>
+<!-- Baidu Button BEGIN -->
+<?php
+$shareUrl = Yii::$app->urlManager->createAbsoluteUrl(['home/blog/index/view', 'article_id' => $article['id']]);
+$shareJs = <<<SHAR
+window._bd_share_config = {
+        common : {
+            bdText : "{$article['title']}",
+            bdUrl : "{$shareUrl}",
+        },
+        share : [{
+            "bdSize" : 16
+        }],
+    }
+    with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+SHAR;
+$this->registerJs($shareJs);
+
+?>
+
+<!-- Baidu Button END -->

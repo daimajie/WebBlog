@@ -158,8 +158,10 @@ class Special extends \yii\db\ActiveRecord
     /**
      * 获取专题列表 （专题列表）
      */
-    public static function getSpecials(){
+    public static function getSpecials($words = ''){
         $query = static::find();
+
+        if( $words ) $query->andWhere(['like', 'name', $words]);
 
         $count = $query->count();
         $pagination = new Pagination(['totalCount' => $count]);

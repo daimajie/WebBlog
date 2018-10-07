@@ -218,8 +218,10 @@ class BlogArticle extends \yii\db\ActiveRecord
      * @param $category_id
      * @param $tag_id
      */
-    public static function getArticleList($category_id, $tag_id){
+    public static function getArticleList($category_id, $tag_id, $words = ''){
         $query = static::getArticleQuery();
+
+        if( $words ) $query->andWhere(['like', 'title', $words]);
 
         if($category_id > 0){
             $query->andWhere(['category_id'=>$category_id]);

@@ -87,18 +87,24 @@ class Comment extends CommentModel
         }
     }
 
+    /**
+     * 删除评论
+     * @return bool|false|int 影响的行数 或false
+     * @throws \yii\db\Exception
+     */
     public function deleteComment(){
 
         $transaction = static::getDb()->beginTransaction();
         try{
-            $ret = static::deleteAll(['comment_id' => $this->id]);
+            $affcted = static::deleteAll(['comment_id' => $this->id]);
+            $deleted = $this->delete();
 
-            if ( ($ret === false) || !$this->delete() ){
+            if ( ($affcted === false) || ($deleted === false) ){
                 throw new Exception('删除评论失败，请重试。');
             }
 
             $transaction->commit();
-            return true;
+            return $affcted + $deleted;
         }catch (\Exception $e){
 
             $transaction->rollBack();

@@ -35,7 +35,9 @@ $this->params['description'] = Html::encode($special['description']);
                                 <div class="row">
                                     <div class="col-sm-12 col-md-4 sidebar "><!-- hidden-xs hidden-sm -->
                                         <div class="hidden-md hidden-lg">
-                                            <span id="sidebar_btn" class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
+                                            <a class="btn btn-default btn-sm" href="javascript:void(0);">
+                                                <span id="sidebar_btn" class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
+                                            </a>
                                         </div>
                                         <nav id="sidebar_nav" class="toc hidden-xs hidden-sm">
                                             <ul>
@@ -62,6 +64,7 @@ $this->params['description'] = Html::encode($special['description']);
                                             </ul>
                                         </nav>
                                     </div>
+                                    <hr class="hidden-md hidden-lg">
                                     <div class="col-sm-12 col-md-8">
                                         <?php
                                         if( !empty($content['article']) ):
@@ -101,10 +104,15 @@ $this->params['description'] = Html::encode($special['description']);
                             <div class="container">
                                 <div class="row">
                                     <div style="padding-top: 15px;" class="col-sm-4 text-left">
-                                        <div class="content-social">
-                                            <a href="javascript:;"><i class="fa fa-qq"></i> <span>QQ</span></a>
-                                            <a href="javascript:;"><i class="fa fa-wechat"></i> <span>微信</span></a>
-                                            <a href="javascript:;"><i class="fa fa-weibo"></i> <span>微博</span></a>
+
+                                        <div
+                                                class="content-social grid bdsharebuttonbox"
+                                                data-tag="share_1"
+                                        >
+                                            <a class="pull-left">分享: </a>
+                                            <a class="pull-left" data-cmd="tqq">QQ</a>
+                                            <a class="pull-left" data-cmd="weixin">微信</a>
+                                            <a class="pull-left" data-cmd="weibo">微博</a>
                                         </div>
                                     </div>
                                     <div class="col-sm-8">
@@ -131,3 +139,25 @@ $('#sidebar_btn').on('click', function(){
 STR;
 $this->registerJs($strJs);
 ?>
+
+<!-- Baidu Button BEGIN -->
+<?php
+$shareUrl = Yii::$app->urlManager->createAbsoluteUrl(['home/topic/special/view', 'special_id' => $content['article']['id']]);
+$shareJs = <<<SHAR
+window._bd_share_config = {
+        common : {
+            bdText : "{$content['article']['title']}",
+            bdUrl : "{$shareUrl}",
+        },
+        share : [{
+            "bdSize" : 16
+        }],
+    }
+    with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+SHAR;
+$this->registerJs($shareJs);
+
+?>
+
+<!-- Baidu Button END -->
+

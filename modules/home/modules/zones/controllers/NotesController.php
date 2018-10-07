@@ -15,4 +15,15 @@ class NotesController extends BaseController
             'notes' => $notes
         ]);
     }
+
+    //搜索
+    public function actionSearch($keywords){
+        $words = htmlentities(trim($keywords));
+
+        $notes = Notes::getNotes($words);
+
+        return $this->render('index',[
+            'notes' => $notes
+        ]);
+    }
 }

@@ -33,11 +33,9 @@ class GetCommentsAction extends Action
             //获取评论列表
             $data = Comment::getComments($content_id, $page, $limit);
 
-            //VarDumper::dump($data,10,1);die;
-
             //生成数据
             return [
-                'comments' => $data['comments'],
+                'comments' => $data['comments'] ? $data['comments'] : null,
                 'pagination' => LinkPager::widget([
                     'pagination' => $data['pagination'],
                     'nextPageLabel' => '<i class="fa fa-chevron-right"></i>',

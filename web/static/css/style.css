@@ -3643,3 +3643,9 @@ article.content-item .post-footer .content-social.grid a + a {
 .reply-wrap{
     margin-bottom: 5px;
 }
+
+/*share*/
+div.bdsharebuttonbox a{
+    background-image: none;
+    float: right;
+}

@@ -32,6 +32,7 @@ class CommentAction extends Action
                 throw new Exception($model->getErrors()[0]);
             }
 
+            //**统计数目递增
             //获取文章id
             $content = Content::findOne(['id' => $model['content_id']]);
 

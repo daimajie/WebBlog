@@ -8,6 +8,9 @@ use yii\helpers\Url;
 $this->title = '文章列表 - ' . Html::encode($this->params['seo']['name']);
 $this->params['keywords'] = $this->params['seo']['keywords'];
 $this->params['description'] = $this->params['seo']['description'];
+
+//搜索地址
+$this->params['searchUrl'] = Url::to(['search']);
 ?>
 
 <!--content-->
@@ -53,10 +56,16 @@ $this->params['description'] = $this->params['seo']['description'];
                                         <a href="<?= Url::to(['view', 'article_id'=>$article['id']])?>" class="button">查看详情</a>
                                     </div>
                                     <div class="col-sm-7 text-right">
-                                        <div class="content-social">
-                                            <a href="javascript:;"><i class="fa fa-qq"></i><span>QQ</span></a>
-                                            <a href="javascript:;"><i class="fa fa-weibo"></i><span>微博</span></a>
-                                            <a href="javascript:;"><i class="fa fa-wechat"></i><span>微信</span></a>
+                                        <div
+                                                class="content-social grid bdsharebuttonbox text-right"
+                                                data-tag="share_<?= $article['id']?>"
+                                                data-url = "<?= Yii::$app->urlManager->createAbsoluteUrl(['home/blog/index/view', 'article_id' => $article['id']])?>"
+                                                data-title = "<?= Html::encode($article['title'])?>",
+                                        >
+                                            <a data-cmd="tqq">QQ</a>
+                                            <a data-cmd="weixin">微信</a>
+                                            <a data-cmd="weibo">微博</a>
+                                            <a>分享: </a>
                                         </div>
                                     </div>
                                 </div>
@@ -221,3 +230,34 @@ $this->params['description'] = $this->params['seo']['description'];
     </div>
 </section>
 <!--/content-->
+<?php
+$shareJs = <<<SHAR
+var shareUrl = "",title='';
+$(function(){
+    $('.bdsharebuttonbox > a').mouseover(function(){
+        shareUrl = $(this).closest('.bdsharebuttonbox').data('url');
+        title = $(this).closest('.bdsharebuttonbox').data('title');
+    });
+});
+window._bd_share_config = {
+        common : {
+            bdText : '',
+            bdUrl : '',
+            onBeforeClick : function(cmd,config){
+                if (shareUrl && title) {
+                    config.bdUrl = shareUrl;
+                    config.bdText = title;
+                }
+                return config;
+            }
+        },
+        share : [{
+            "bdSize" : 16
+        }],
+    }
+    with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+SHAR;
+$this->registerJs($shareJs);
+
+?>
+

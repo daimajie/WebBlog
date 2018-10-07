@@ -64,6 +64,18 @@ class SpecialController extends BaseController
         ]);
     }
 
+    //搜索专题
+    public function actionSearch($keywords){
+        $words = htmlentities(trim($keywords));
+
+        $data = Special::getSpecials($words);
+
+        return $this->render('index',[
+            'specials' => $data['specials'],
+            'pagination' =>$data['pagination']
+        ]);
+
+    }
     //专题详情
     public function actionView($special_id){
         $special = Special::getSpecial($special_id);

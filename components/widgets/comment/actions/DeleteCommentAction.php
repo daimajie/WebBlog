@@ -38,26 +38,28 @@ class DeleteCommentAction extends Action{
             if( !$model ) throw new NotFoundHttpException('没有相关参数。');
 
             //删除操作
-            if( !$model->deleteComment() ){
+            $num = $model->deleteComment();
+            if( !$num ){
                 throw new Exception('删除评论失败，请重试');
             }
 
+
+
+            //**统计评论递减
             //获取文章id
             $content = Content::findOne(['id' => $model['content_id']]);
-
-            //统计评论递减
             try{
                 if($this->type == 'blog')
-                    BlogArticle::updateAllCounters(['comment'=>-1], ['id'=>$content['article_id']]);
+                    BlogArticle::updateAllCounters(['comment'=>-$num], ['id'=>$content['article_id']]);
                 else{
-                    SpecialArticle::updateAllCounters(['comment'=>-1], ['id'=>$content['article_id']]);
+                    SpecialArticle::updateAllCounters(['comment'=>-$num], ['id'=>$content['article_id']]);
 
                     $special_id = SpecialArticle::find()
                         ->where(['id'=>$content['article_id']])
                         ->select(['special_id'])
                         ->asArray()
                         ->scalar();
-                    Special::updateAllCounters(['comment'=>-1], ['id'=>$special_id]);
+                    Special::updateAllCounters(['comment'=>-$num], ['id'=>$special_id]);
                 }
             }catch (Exception $e){
                 //统计数目操作忽略异常

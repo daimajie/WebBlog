@@ -75,8 +75,11 @@ class Notes extends \yii\db\ActiveRecord
     /**
      * 获取日记列表
      */
-    public static function getNotes(){
+    public static function getNotes( $words = '' ){
         $query = static::find();
+
+        if( $words ) $query->andWhere(['like', 'title', $words]);
+
         $count = $query->count();
 
         $pagination = new Pagination(['totalCount' => $count]);
@@ -91,4 +94,5 @@ class Notes extends \yii\db\ActiveRecord
             'pagination' => $pagination
         ];
     }
+
 }

@@ -74,10 +74,12 @@ $this->params['sign'] = Html::encode($this->params['seo']['sign']);
                     </nav>
                 </div>
                 <div class=" col-md-5 h-search">
-                    <form class="search_form">
-                        <input type="text" name="2" placeholder="搜索...">
+                    <?php if( !empty($this->params['searchUrl']) ):?>
+                    <form class="search_form" action="<?= $this->params['searchUrl']?>">
+                        <input type="text" name="keywords" placeholder="<?= !empty($_GET['keywords']) ? $_GET['keywords'] : '搜索...';?>">
                         <button type="submit"><i class="fa fa-search"></i></button>
                     </form>
+                    <?php endif;?>
                 </div>
             </div>
         </div>

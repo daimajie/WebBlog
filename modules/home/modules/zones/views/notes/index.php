@@ -2,11 +2,14 @@
 use yii\helpers\Html;
 use app\components\helper\Helper;
 use yii\widgets\LinkPager;
-
+use yii\helpers\Url;
 
 $this->title = '日记列表 - ' . Html::encode($this->params['seo']['name']);
 $this->params['keywords'] = '';
 $this->params['description'] = '';
+
+//搜索地址
+$this->params['searchUrl'] = Url::to(['search']);
 ?>
 
 <section class="section-content">

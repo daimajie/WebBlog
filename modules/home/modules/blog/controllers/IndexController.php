@@ -65,6 +65,21 @@ class IndexController extends  BaseController
         ]);
     }
 
+    public function actionSearch( $keywords )
+    {
+        $words = htmlentities(trim($keywords));
+
+        //获取文章列表
+        $category_id = (int) Yii::$app->request->get('category_id', 0);
+        $tag_id = (int) Yii::$app->request->get('tag_id', 0);
+        $data = BlogArticle::getArticleList($category_id, $tag_id, $words);
+
+        return $this->render('index',[
+            'articles' => $data['articles'],
+            'pagination' => $data['pagination'],
+        ]);
+    }
+
     public function actionView(){
         $article_id = (int) Yii::$app->request->get('article_id', 0);
         $article = BlogArticle::getArticle($article_id);
