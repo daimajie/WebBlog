@@ -35,6 +35,12 @@ class m180921_032141_create_blog_article_tbl extends Migration
             'user_id' => $this->integer()->unsigned()->notNull()->defaultValue(0)->comment('作者'),
         ], 'engine=innodb charset=utf8mb4');
 
+        /*$this->createIndex(
+            'idx-blog_article-title',
+            static::TBL_NAME,
+            'title'
+        );*/
+
         $this->createIndex(
             'idx-blog_article-draft',
             static::TBL_NAME,

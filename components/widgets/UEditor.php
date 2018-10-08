@@ -41,7 +41,7 @@ class UEditor extends InputWidget
 
         //初始化编辑器
         $jsStr = <<<JS
-            var ue = UE.getEditor("{$this->selector}","{$clintOptions}");
+            var ue = UE.getEditor("{$this->selector}",{$clintOptions});
 
             //给文本框添加id
             $(ue.textarea).attr('id', "{$this->options['id']}");

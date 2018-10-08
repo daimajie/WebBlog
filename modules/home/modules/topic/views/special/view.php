@@ -4,12 +4,15 @@ use app\components\helper\Helper;
 use yii\helpers\Url;
 use yii\helpers\Html;
 use app\components\widgets\comment\Comment;
+use yii\helpers\HtmlPurifier;
+use app\controllers\BaseController;
 
 AppAsset::addCss($this, '/static/css/nav_style.css');
 
 $this->title = Html::encode($special['name']) . ' - ' . $this->params['seo']['name'];
 $this->params['keywords'] = Html::encode($special['name']);
 $this->params['description'] = Html::encode($special['description']);
+
 ?>
 
 <section class="section-content" id="anchor">
@@ -81,7 +84,20 @@ $this->params['description'] = Html::encode($special['description']);
                                                 </div>
                                             </div>
                                             <div class="post-body">
-                                                <?= Html::encode($content['article']['content']['content'])?>
+                                                <?php
+                                                if ($this->beginCache(BaseController::BLOG_ARTICLE_CACHE, [
+                                                    'duration' => 3600,
+                                                    'variations' => [
+                                                        Yii::$app->request->get('article_id'),
+                                                        $this->context->module->id
+                                                    ]
+                                                ])){
+
+                                                    echo HtmlPurifier::process($content['article']['content']['content']);
+
+                                                    $this->endCache();
+                                                }
+                                                ?>
                                             </div>
                                             <div id="prev_next" class="post-navigation">
                                                 <ul>

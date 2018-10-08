@@ -6,6 +6,7 @@ use Yii;
 use app\models\setting\Setups;
 use yii\data\ActiveDataProvider;
 use app\modules\admin\controllers\BaseController;
+use yii\helpers\VarDumper;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
@@ -37,7 +38,8 @@ class SetupsController extends BaseController
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) && $model->store()) {
+            Yii::$app->session->setFlash('success', '设置成功.');
             return $this->redirect(['index']);
         } else {
             return $this->render('update', [

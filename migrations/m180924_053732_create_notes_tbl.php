@@ -24,6 +24,12 @@ class m180924_053732_create_notes_tbl extends Migration
         ], 'engine=innodb charset=utf8mb4');
 
         $this->createIndex(
+            'idx-notes-title',
+            static::TBL_NAME,
+            'title'
+        );
+
+        $this->createIndex(
             'idx-notes-created_at',
             static::TBL_NAME,
             'created_at'

@@ -31,6 +31,12 @@ class m180923_023614_create_special_article_tbl extends Migration
 
         ], 'engine=innodb charset=utf8mb4');
 
+        /*$this->createIndex(
+            'idx-special_article-title',
+            static::TBL_NAME,
+            'title'
+        );*/
+
         //special_id
         $this->addForeignKey(
             'fk-special_article-special_id',

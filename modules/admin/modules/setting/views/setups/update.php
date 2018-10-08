@@ -2,6 +2,8 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use app\components\widgets\UEditor;
+use app\components\widgets\fileInput\FileInput;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\setting\Setups */
@@ -17,12 +19,18 @@ $this->params['breadcrumbs'][] = '修改设置';
         <div class="box-header">
             <?= Html::a('返回', ['index'], ['class' => 'btn btn-primary btn-flat']) ?>
         </div>
-        <?php $form = ActiveForm::begin(); ?>
+        <?php $form = ActiveForm::begin([
+                'options' => [
+                    'enctype'=>'multipart/form-data',
+                ],
+        ]); ?>
         <div class="box-body table-responsive">
 
             <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
             <?= $form->field($model, 'sign')->textInput(['maxlength' => true]) ?>
+
+            <?= $form->field($model, 'file')->widget(FileInput::class) ?>
 
             <?= $form->field($model, 'keywords')->textarea(['maxlength' => true]) ?>
 
@@ -31,6 +39,17 @@ $this->params['breadcrumbs'][] = '修改设置';
             <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
 
             <?= $form->field($model, 'about')->textarea(['maxlength' => true]) ?>
+
+            <?= $form->field($model, 'history')->widget(UEditor::class,[
+                'selector' => 'UEditor',
+
+                //ueditor设置
+                'clientOptions' => [
+                        'initialFrameHeight' =>320
+                ]
+            ]) ?>
+
+
 
         </div>
         <div class="box-footer">

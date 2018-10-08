@@ -22,6 +22,7 @@ class m181001_095839_create_setups_tbl extends Migration
             'image' => $this->string('128')->notNull()->defaultValue('')->comment('图片'),
             'email' => $this->string(64)->notNull()->defaultValue('')->comment('联系邮箱'),
             'about' => $this->string(512)->notNull()->defaultValue('')->comment('关于我'),
+            'history' => $this->text()->comment('我的故事'),
             'created_at' => $this->integer()->notNull()->unsigned()->defaultValue(0)->comment('创建时间'),
             'updated_at' => $this->integer()->notNull()->unsigned()->defaultValue(0)->comment('修改时间'),
 
@@ -36,6 +37,7 @@ class m181001_095839_create_setups_tbl extends Migration
             'image' => '/static/img/widget/about.jpg',
             'email' => 'admin@admin.com',
             'about' => 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remained.',
+            'history' => 'my history text',
         ]);
 
 
