@@ -22,9 +22,14 @@ class Friend  extends Widget
         $friend = $sidebar['friend'];
 
         $tmp = '';
-        foreach ($friend as $item) {
-            $tmp .= '<a target="_blank" href="'. $item['url'] .'">'. Html::encode($item['site']) .'</a>&nbsp;&nbsp;';
+        if( !empty($friend) ){
+            foreach ($friend as $item) {
+                $tmp .= '<a target="_blank" href="'. $item['url'] .'">'. Html::encode($item['site']) .'</a>&nbsp;&nbsp;';
+            }
+        }else{
+            $tmp = '暂无友链';
         }
+
         
         $html = <<<HTML
                 <!-- 友链 -->

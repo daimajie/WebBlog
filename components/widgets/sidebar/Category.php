@@ -23,9 +23,14 @@ class Category  extends Widget
         $category = $sidebar['category'];
 
         $tmp = '';
-        foreach ($category as $item) {
-            $tmp .= '<li><a href="'. Url::to(['/home/blog/index/index', 'category_id'=>$item['id']]) .'">'. Html::encode($item['name']) .'</a><span class="pull-right"> 更新于 - '.Helper::formatDate($item['updated_at']).'</span></li>';
+        if(!empty($category)){
+            foreach ($category as $item) {
+                $tmp .= '<li><a href="'. Url::to(['/home/blog/index/index', 'category_id'=>$item['id']]) .'">'. Html::encode($item['name']) .'</a><span class="pull-right"> 更新于 - '.Helper::formatDate($item['updated_at']).'</span></li>';
+            }
+        }else{
+            $tmp = '暂无分类';
         }
+
 
         $html = <<<HTML
                 <!-- 分类 -->

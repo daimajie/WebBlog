@@ -24,14 +24,19 @@ class Hot  extends Widget
         $hot = $sidebar['hot'];
 
         $str = '';
-        foreach ($hot as $item) {
-            $str .= '<div class="widget-recent">';
+        if(!empty($hot)){
+            foreach ($hot as $item) {
+                $str .= '<div class="widget-recent">';
                 if( !empty($item['image']) )
                     $str .= '<img src="'. Helper::showImage($item['image']) .'" alt="not image">';
                 $str .= '<h4><a href="'. Url::to(['/home/blog/index/view', 'article_id'=>$item['id']]) .'">'. Html::encode($item['title']) .'</a> </h4>';
                 $str .= '<p>'. Helper::truncate_utf8_string(Html::encode($item['brief']),75) .'</p>';
-            $str .= '</div>';
+                $str .= '</div>';
+            }
+        }else{
+            $str = '暂无热门文章.';
         }
+
 
         $html = <<<HTML
                 <!-- 热门文章 -->

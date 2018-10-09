@@ -32,7 +32,7 @@ class About  extends Widget
         $html = <<<HTML
                 <!-- 我的故事 -->
                 <div class="widget">
-                    <h3 class="widget-title">我的故事</h3>
+                    <h3 class="widget-title">关于我</h3>
                     <div class="bubble-line"></div>
 
                     <div class="widget-content">

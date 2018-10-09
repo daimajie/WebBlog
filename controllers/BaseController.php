@@ -19,10 +19,12 @@ use Yii;
 
 class BaseController extends Controller
 {
+    //缓存key
     const SEO_CACHE = 'seo';
     const SIDEBAR_CACHE = 'sidebar';
     const BLOG_ARTICLE_CACHE = 'article';
     const SPECIAL_ARTICLE_CACHE = 'article';
+    const SLIDE_CACHE = 'slide';
 
     public function beforeAction($action)
     {
@@ -53,7 +55,7 @@ class BaseController extends Controller
 
                 //获取侧边栏数据
                 $sidebar = $cache->get(static::SIDEBAR_CACHE);
-                if($sidebar !== false){
+                if($sidebar === false){
                     $sidebar = [];
                     //分类
                     $sidebar['category'] = Category::find()->select(['id','name','updated_at'])->asArray()->all();
@@ -66,8 +68,24 @@ class BaseController extends Controller
 
                     $cache->set(static::SIDEBAR_CACHE, $sidebar, 60*60*2);
                 }
-
                 $this->view->params[static::SIDEBAR_CACHE] = $sidebar;
+
+
+                //缓存页面底部轮播图
+                $slide =$cache->get(static::SLIDE_CACHE);
+                if($slide === false){
+                    //获取有图片的文章8条
+                    $slide = BlogArticle::find()
+                        ->where(['!=','image', ''])
+                        ->select(['id','title','image'])
+                        ->orderBy(['created_at'=>SORT_DESC])
+                        ->limit(10)
+                        ->asArray()
+                        ->all();
+
+                    $cache->set(static::SLIDE_CACHE, $slide, 60*60*2);
+                }
+                $this->view->params[static::SLIDE_CACHE] = $slide;
 
             }
 

@@ -90,9 +90,9 @@
                         'icon' => 'laptop',
                         'url' => '#',
                         'items' => [
-                            //['label' => '系统日志', 'icon' => 'circle-o', 'url' => ['#'],],
-                            //['label' => '备份还原', 'icon' => 'circle-o', 'url' => ['#'],],
-                            //['label' => '缓存管理', 'icon' => 'circle-o', 'url' => ['#'],],
+                            ['label' => '系统日志', 'icon' => 'circle-o', 'url' => ['#'],],
+                            ['label' => '备份还原', 'icon' => 'circle-o', 'url' => ['#'],],
+                            ['label' => '缓存管理', 'icon' => 'circle-o', 'url' => ['#'],],
                         ],
                     ],
 

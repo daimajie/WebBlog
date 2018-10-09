@@ -27,4 +27,6 @@ return [
         'upUrl' => "@web/static/upload",
         'allowMime' => ['jpg','jpeg','png','gif'],
     ],
+
+    'RBAC' => require __DIR__ . '/rbac.php',
 ];

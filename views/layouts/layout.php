@@ -4,6 +4,7 @@ use yii\helpers\Url;
 use app\assets\AppAsset;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
+use app\controllers\BaseController;
 
 AppAsset::register($this);
 $this->params['name'] = Html::encode($this->params['seo']['name']);
@@ -67,7 +68,7 @@ $this->params['sign'] = Html::encode($this->params['seo']['sign']);
                             <li><a href="<?= Url::to(['/'])?>">首页</a></li>
                             <li><a href="<?= Url::to(['/home/topic/special/index'])?>">专题</a></li>
                             <li><a href="<?= Url::to(['/home/zones/notes/index'])?>">日记</a></li>
-                            <li><a href="<?= Url::to(['/index/about'])?>">关于我</a></li>
+                            <li><a href="<?= Url::to(['/index/about'])?>">我的故事</a></li>
                             <li><a href="<?= Url::to(['/index/contact'])?>">联系我</a></li>
                         </ul>
                         <a href="javascript:;" id="close-menu"> <i class="fa fa-close"></i></a>
@@ -95,37 +96,25 @@ $this->params['sign'] = Html::encode($this->params['seo']['sign']);
     <div class="footer-slide">
         <div class="swiper-container">
             <div class="swiper-wrapper">
+                <?php
+                $slide = $this->params[BaseController::SLIDE_CACHE];
+                if( !empty($slide) ):
+                    foreach ( $slide as $v):
+                ?>
                 <div class="swiper-slide fslide col-xs-6 col-sm-4 col-md-3 col-lg-2">
-                    <a href="#" class="thumbnails"><img src="/static/img/footer/photos2.jpg" alt="Image"></a>
+                    <a href="<?= Url::to(['/home/blog/index/view', 'article_id'=>$v['id']])?>" class="thumbnails"><img src="<?= $v['image']?>" alt="<?= $v['title']?>"></a>
                 </div>
-                <div class="swiper-slide fslide col-xs-6 col-sm-4 col-md-3 col-lg-2">
-                    <a href="#" class="thumbnails"><img src="/static/img/footer/photos1.jpg" alt="Image"></a>
-                </div>
-                <div class="swiper-slide fslide col-xs-6 col-sm-4 col-md-3 col-lg-2">
-                    <a href="#" class="thumbnails"><img src="/static/img/footer/01-footer.jpg" alt="Image"></a>
-                </div>
-                <div class="swiper-slide fslide col-xs-6 col-sm-4 col-md-3 col-lg-2">
-                    <a href="#" class="thumbnails"><img src="/static/img/footer/02-footert.jpg" alt="Image"></a>
-                </div>
-                <div class="swiper-slide fslide col-xs-6 col-sm-4 col-md-3 col-lg-2">
-                    <a href="#" class="thumbnails"><img src="/static/img/footer/photos4.jpg" alt="Image"></a>
-                </div>
-
-                <div class="swiper-slide fslide col-xs-6 col-sm-4 col-md-3 col-lg-2">
-                    <a href="#" class="thumbnails"><img src="/static/img/footer/photos5.jpg" alt="Image"></a>
-                </div>
-                <div class="swiper-slide fslide col-xs-6 col-sm-4 col-md-3 col-lg-2">
-                    <a href="#" class="thumbnails"><img src="/static/img/footer/photos7.jpg" alt="Image"></a>
-                </div>
-                <div class="swiper-slide fslide col-xs-6 col-sm-4 col-md-3 col-lg-2">
-                    <a href="#" class="thumbnails"><img src="/static/img/footer/photos6.jpg" alt="Image"></a>
-                </div>
+                <?php
+                    endforeach;
+                endif;
+                ?>
             </div>
             <div class="swiper-button-prev circle-arrow"><i class="fa fa-chevron-left"></i></div>
             <div class="swiper-button-next circle-arrow"><i class="fa fa-chevron-right"></i></div>
-            <div class="swiper-center"><a href="javascript:;"><i class="fa fa-instagram"></i>Cloudy town</a></div>
+            <div class="swiper-center"><a href="javascript:;"><i class="fa fa-instagram"></i>DAIMAJIE.COM</a></div>
         </div>
-    </div>        <div class="sub-footer">
+    </div>
+    <div class="sub-footer">
         <div class="container">
             <div class="row">
                 <div class="col-sm-12">
@@ -133,7 +122,7 @@ $this->params['sign'] = Html::encode($this->params['seo']['sign']);
                     </div>
                     <div class="widget footer-cp-text">
                         <p>
-                            &copy; 2016. All rights reserved. Cloudytown made with love by Designs.
+                            &copy; 2016. All rights reserved. DAIMAJIE.COM
                         </p>
                     </div>
                 </div>
