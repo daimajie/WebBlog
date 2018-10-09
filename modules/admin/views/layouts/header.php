@@ -4,7 +4,7 @@ use app\components\helper\Helper;
 use yii\helpers\Url;
 
 $user = Yii::$app->user->identity;
-$unread = $this->params['unread'];
+$unread = !empty($this->params['unread']) ? $this->params['unread']: [];
 
 /* @var $this \yii\web\View */
 /* @var $content string */
