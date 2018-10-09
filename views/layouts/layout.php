@@ -3,8 +3,8 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use app\assets\AppAsset;
 use yii\bootstrap\Nav;
-use yii\bootstrap\NavBar;
 use app\controllers\BaseController;
+use app\components\helper\Helper;
 
 AppAsset::register($this);
 $this->params['name'] = Html::encode($this->params['seo']['name']);
@@ -102,7 +102,9 @@ $this->params['sign'] = Html::encode($this->params['seo']['sign']);
                     foreach ( $slide as $v):
                 ?>
                 <div class="swiper-slide fslide col-xs-6 col-sm-4 col-md-3 col-lg-2">
-                    <a href="<?= Url::to(['/home/blog/index/view', 'article_id'=>$v['id']])?>" class="thumbnails"><img src="<?= $v['image']?>" alt="<?= $v['title']?>"></a>
+                    <a href="<?= Url::to(['/home/blog/index/view', 'article_id'=>$v['id']])?>" class="thumbnails">
+                        <img src="<?= Helper::showImage($v['image'])?>" alt="<?= $v['title']?>">
+                    </a>
                 </div>
                 <?php
                     endforeach;

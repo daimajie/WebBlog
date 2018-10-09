@@ -80,4 +80,9 @@ class Contact extends \yii\db\ActiveRecord
         return $this->hasOne(User::class, ['id'=>'user_id']);
     }
 
+    public function getUserImage(){
+        return $this->hasOne(User::class, ['id'=>'user_id'])
+            ->select(['id','username','image']);
+    }
+
 }

@@ -7,8 +7,10 @@
  */
 namespace app\modules\admin\controllers;
 use app\controllers\BaseController as Controller;
+use app\models\member\Contact;
 use Yii;
 use yii\base\Exception;
+use yii\helpers\VarDumper;
 use yii\web\ForbiddenHttpException;
 
 class BaseController extends Controller
@@ -39,6 +41,16 @@ class BaseController extends Controller
             if(!in_array('*', $auths) && !in_array($modelId .'/*', $auths)){
                 throw new ForbiddenHttpException('您没有权限访问。');
             }
+            
+            //获取未读留言
+            $unread = Contact::find()->with('userImage')
+                ->where(['visited'=>0])
+                ->select(['id','subject','user_id','created_at'])
+                ->orderBy(['created_at'=>SORT_DESC])
+                ->asArray()
+                ->limit(8)
+                ->all();
+            $this->view->params['unread'] = $unread;
             return true;
         }
         return false;

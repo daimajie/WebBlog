@@ -117,6 +117,7 @@ class LoginForm extends Model
     public function login()
     {
         if ($this->validate()) {
+            User::updateAll(['lasttime'=>time()],['id'=>$this->getUser()->id]);
             return Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600*24*7 : 0);
         }
         return false;
