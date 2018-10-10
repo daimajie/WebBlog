@@ -99,9 +99,9 @@ $user = Yii::$app->user->identity;
                         'icon' => 'laptop',
                         'url' => '#',
                         'items' => [
-                            ['label' => '系统日志', 'icon' => 'circle-o', 'url' => ['#'],],
-                            ['label' => '备份还原', 'icon' => 'circle-o', 'url' => ['#'],],
-                            ['label' => '缓存管理', 'icon' => 'circle-o', 'url' => ['#'],],
+                            ['label' => '系统日志', 'icon' => 'circle-o', 'url' => ['/admin/operate/log'],],
+                            ['label' => '缓存管理', 'icon' => 'circle-o', 'url' => ['/admin/operate/cache'],],
+                            ['label' => '备份还原', 'icon' => 'circle-o', 'url' => ['/admin/operate/backups'],],
                         ],
                     ],
 

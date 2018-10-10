@@ -32,7 +32,7 @@ $user = Yii::$app->user->identity;
                     <?= $user['username']?><br>
                     <?= $user['email']?><br>
                     <?= date('Y-m-d', $user['created_at'])?><br>
-                    <?= date('Y-m-d', $user['lasttime'])?>
+                    <?= date('Y-m-d H:s:i', $user['lasttime'])?>
                 </address>
             </div>
             <!-- /.col -->

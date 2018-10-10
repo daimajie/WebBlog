@@ -13,6 +13,12 @@ $this->title = Html::encode($special['name']) . ' - ' . $this->params['seo']['na
 $this->params['keywords'] = Html::encode($special['name']);
 $this->params['description'] = Html::encode($special['description']);
 
+//文章片段缓存依赖
+$dependency = [
+    'class' => 'yii\caching\DbDependency',
+    'sql' => 'select updated_at from {{%special_article}} where id=' . $content['article']['id'],
+];
+
 ?>
 
 <section class="section-content" id="anchor">
@@ -85,12 +91,13 @@ $this->params['description'] = Html::encode($special['description']);
                                             </div>
                                             <div class="post-body">
                                                 <?php
-                                                if ($this->beginCache(BaseController::BLOG_ARTICLE_CACHE, [
-                                                    'duration' => 3600,
+                                                if ($this->beginCache(BaseController::SPECIAL_ARTICLE_CACHE, [
+                                                    'dependency' => $dependency,
                                                     'variations' => [
                                                         Yii::$app->request->get('article_id'),
                                                         $this->context->module->id
-                                                    ]
+                                                    ],
+                                                    'duration' => 3600,
                                                 ])){
 
                                                     echo HtmlPurifier::process($content['article']['content']['content']);

@@ -27,6 +27,9 @@ return [
         'comment' => [
             'class' => 'app\modules\admin\modules\comment\Module',
         ],
+        'operate' => [
+            'class' => 'app\modules\admin\modules\operate\Module',
+        ],
 
     ],
     'components' => [

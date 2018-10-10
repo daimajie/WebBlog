@@ -58,8 +58,18 @@ $config = [
             'traceLevel' => YII_DEBUG ? 3 : 0,
             'targets' => [
                 [
-                    'class' => 'yii\log\FileTarget',
+                    'class' => 'yii\log\DbTarget',
                     'levels' => ['error', 'warning'],
+                ],
+                [
+                    'class' => 'yii\log\EmailTarget',
+                    'levels' => ['error'],
+                    'categories' => ['yii\db\*'],
+                    'message' => [
+                        'from' => ['git1314@163.com'],
+                        'to' => ['daimajie@qq.com'],
+                        'subject' => '数据库出现错误，请尽快修复',
+                    ],
                 ],
             ],
         ],

@@ -17,6 +17,12 @@ $this->params['description'] = '';
 
 //默认封面
 $cover = Yii::$app->params['article']['cover'];
+
+//文章片段缓存依赖
+$dependency = [
+    'class' => 'yii\caching\DbDependency',
+    'sql' => 'select updated_at from {{%blog_article}} where id=' . $article['id'],
+];
 ?>
 <section class="section-content"  id="anchor">
     <div class="container">
@@ -41,11 +47,12 @@ $cover = Yii::$app->params['article']['cover'];
                         <div class="post-content">
                             <?php
                             if ($this->beginCache(BaseController::BLOG_ARTICLE_CACHE, [
-                                'duration' => 3600,
+                                'dependency' => $dependency,
                                 'variations' => [
                                         Yii::$app->request->get('article_id'),
                                         $this->context->module->id
-                                    ]
+                                    ],
+                                'duration' => 3600,
                             ])){
 
                                 echo HtmlPurifier::process($article['content']['content']);
