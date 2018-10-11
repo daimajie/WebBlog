@@ -25,7 +25,7 @@ class About  extends Widget
         $view = $this->getView();
         $about = $view->params[BaseController::SEO_CACHE];
 
-        $image = Helper::showImage($about['image']);
+        $image = !empty($about['image']) ? Helper::showImage($about['image']) : '/static/img/widget/about.jpg';
         $intro = Html::encode($about['about']);
         $aboutUrl = Url::to(['/index/about']);
 

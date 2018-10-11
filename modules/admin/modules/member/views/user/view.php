@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use app\components\helper\Helper;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\member\UserForm */
@@ -37,7 +38,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             //默认头像
                             $avatar = Yii::$app->params['member']['avatar'];
                         }else{
-                            $avatar = Yii::getAlias('@web/' . $model->image);
+                            $avatar = Helper::showImage($model->image);
                         }
 
 

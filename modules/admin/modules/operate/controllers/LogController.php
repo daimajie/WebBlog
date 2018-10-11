@@ -37,12 +37,12 @@ class LogController extends BaseController
 
         $model->delete();
 
-        $this->redirect(['log/index']);
+        return $this->redirect(['index']);
     }
 
     //删除全部
-    public function actionFlash(){
+    public function actionFlush(){
         Log::deleteAll();
-        $this->refresh(['log/index']);
+        return $this->redirect(['index']);
     }
 }

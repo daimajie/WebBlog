@@ -45,7 +45,7 @@ class CacheController extends BaseController
     }
 
     //清空seo缓存
-    public function actionSEO(){
+    public function actionSeo(){
         $this->cache->delete(Base::SEO_CACHE);
         return $this->redirect(['index']);
     }

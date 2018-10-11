@@ -269,7 +269,7 @@ class IndexController extends BaseController
     public function actionAbout()
     {
         return $this->render('about',[
-            'about' => Setups::find()->select(['about', 'email'])->where(['id'=>1])->asArray()->one(),
+            'about' => Setups::find()->select(['history', 'email'])->where(['id'=>1])->asArray()->one(),
         ]);
     }
 }

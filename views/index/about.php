@@ -5,6 +5,7 @@ use app\components\widgets\sidebar\Category;
 use app\components\widgets\sidebar\Hot;
 use app\components\widgets\sidebar\Tags;
 use app\components\widgets\sidebar\Friend;
+use yii\helpers\HtmlPurifier;
 
 
 
@@ -24,7 +25,7 @@ $this->params['description'] = '';
                         </div>
                         <div class="bubble-line"></div>
                         <div class="post-content about">
-                            <p><?= Html::encode($about['about'])?></p>
+                            <p><?= HtmlPurifier::process($about['history'])?></p>
                             <hr class="post-horizontal-rule">
                             <p class="sub-title"><?= $about['email']?></p>
                         </div>

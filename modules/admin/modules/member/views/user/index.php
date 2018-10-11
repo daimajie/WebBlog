@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use app\components\helper\Helper;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\member\SearchUser */
@@ -38,7 +39,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             //默认头像
                             $avatar = Yii::$app->params['member']['avatar'];
                         }else{
-                            $avatar = Yii::getAlias('@web/' . $model->image);
+                            $avatar = Helper::showImage($model->image);
                         }
 
 

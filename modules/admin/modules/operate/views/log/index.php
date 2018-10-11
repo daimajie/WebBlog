@@ -13,7 +13,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="user-form-index box box-primary">
     <div class="box-header with-border">
         <div class="pull-left">
-            <?= Html::a('清空日志', ['flash'], [
+            <?= Html::a('清空日志', ['flush'], [
                     'class' => 'btn btn-success btn-flat',
                     'onclick' => 'javascript:return confirm("您确定删除所有日志信息吗？");'
                 ]) ?>
