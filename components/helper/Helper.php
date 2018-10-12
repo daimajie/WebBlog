@@ -10,6 +10,15 @@ class Helper {
         $upUrl = Yii::getAlias(Yii::$app->params['upload']['upUrl']);
         return $upUrl .'/'. $image;
     }
+
+    //显示头像
+    public static function showAvatar($image){
+        if(empty($image)){
+            return '/static/img/avatar.png';
+        }
+        $upUrl = Yii::getAlias(Yii::$app->params['upload']['upUrl']);
+        return $upUrl .'/'. $image;
+    }
     
     //格式化时间
     public static function formatDate($date){

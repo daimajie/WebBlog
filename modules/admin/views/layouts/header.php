@@ -39,10 +39,8 @@ $unread = !empty($this->params['unread']) ? $this->params['unread']: [];
                                 <li><!-- start message -->
                                     <a href="<?= Url::to(['/admin/member/contact/view', 'id'=>$item['id']])?>">
                                         <div class="pull-left">
-                                            <?php if(!empty($item['userImage']['image'])):?>
-                                            <img src="<?= Helper::showImage($item['userImage']['image'])?>" class="img-circle"
+                                            <img src="<?= Helper::showAvatar($item['userImage']['image'])?>" class="img-circle"
                                                  alt="User Image"/>
-                                            <?php endif;?>
                                         </div>
                                         <h4>
                                             <?= $item['userImage']['username']?>
@@ -60,7 +58,7 @@ $unread = !empty($this->params['unread']) ? $this->params['unread']: [];
 
                 <li class="user user-menu">
                     <a href="#" class="" data-toggle="">
-                        <img src="<?= Helper::showImage($user['image'])?>" class="user-image" alt="User Image"/>
+                        <img src="<?= Helper::showAvatar($user['image'])?>" class="user-image" alt="User Image"/>
                         <span class="hidden-xs"><?= $user['username']?></span>
                     </a>
 

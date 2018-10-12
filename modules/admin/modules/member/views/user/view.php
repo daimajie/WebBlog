@@ -34,12 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'attribute' => 'image',
                     'format' => 'html',
                     'value' => function($model){
-                        if(empty($model->image)){
-                            //默认头像
-                            $avatar = Yii::$app->params['member']['avatar'];
-                        }else{
-                            $avatar = Helper::showImage($model->image);
-                        }
+                        $avatar = Helper::showAvatar($model->image);
 
 
                         return Html::img($avatar, ['width'=>50,'height'=>50,'class'=>'img-circle']);

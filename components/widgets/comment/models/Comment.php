@@ -78,7 +78,7 @@ class Comment extends CommentModel
         foreach( $comments as &$comment ){
             $comment['comment'] = Html::encode($comment['comment']);
             $comment['created_at'] = Helper::formatDate($comment['created_at']);
-            $comment['user']['image'] = Helper::showImage($comment['user']['image']);
+            $comment['user']['image'] = Helper::showAvatar($comment['user']['image']);
             $comment['user']['username'] = Html::encode($comment['user']['username']);
             $comment['owner'] = (!Yii::$app->user->isGuest) && ($comment['user']['id'] === Yii::$app->user->id);
             if(!empty($comment['replys'])){
