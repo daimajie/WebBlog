@@ -3,7 +3,7 @@
 use yii\helpers\Url;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use app\components\widgets\imageInput\imageInput;
+use app\components\widgets\imageInput\ImageInput;
 use app\assets\AdminLteICheckAsset;
 use app\components\widgets\UEditor;
 use app\components\helper\Helper;
@@ -29,7 +29,7 @@ $cover = Yii::$app->params['article']['cover'];
 
         <?= $form->field($model, 'brief')->textarea(['maxlength' => true]) ?>
 
-        <?= $form->field($model, 'image')->widget(imageInput::class,[
+        <?= $form->field($model, 'image')->widget(ImageInput::class,[
             'defaultImage' => !empty($model->image) ? Helper::showImage($model->image) : $cover,
             'uploadUrl' => Url::to(['upload']),
         ]) ?>

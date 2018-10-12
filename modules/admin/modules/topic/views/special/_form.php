@@ -2,7 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use app\components\widgets\imageInput\imageInput;
+use app\components\widgets\imageInput\ImageInput;
 use yii\helpers\Url;
 use app\components\helper\Helper;
 
@@ -20,7 +20,7 @@ $cover = Yii::$app->params['article']['cover'];
 
         <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
-        <?= $form->field($model, 'image')->widget(imageInput::class,[
+        <?= $form->field($model, 'image')->widget(ImageInput::class,[
             'defaultImage' => !empty($model->image) ? Helper::showImage($model->image) : $cover,
             'uploadUrl' => Url::to(['upload']),
         ]) ?>
