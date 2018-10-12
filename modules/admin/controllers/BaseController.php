@@ -34,7 +34,7 @@ class BaseController extends Controller
                     $key = $k;
                 }
             }
-            if( !$key ) return $this->action->controller->redirect(['/']);
+            if( !$key ) return $this->goHome();
 
             //检测权限
             $auths = Yii::$app->params['RBAC']['RBAC_AUTHS'][$key];

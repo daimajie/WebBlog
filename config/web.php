@@ -75,21 +75,23 @@ $config = [
         ],
         'db' => $db,
         'urlManager' => [
-            'enablePrettyUrl' => true,
+            'enablePrettyUrl' => false,
             'showScriptName' => false,
             'enableStrictParsing' => false,
+            'suffix' => '.html',
             'rules' => [
                 //博客
-                //'index' => 'home/blog/index/index',
+                'index' => 'home/blog/index/index',
 
                 //专题
-                //'special/index' => 'home/topic/special/index',
-                //'special/view' => 'home/topic/special/view',
+                'special/index' => 'home/topic/special/index',
+                'special/view' => 'home/topic/special/view',
 
                 //日记
-                //'note/index' => 'home/zones/notes/index',
+                'note/index' => 'home/zones/notes/index',
 
-
+                //控制台
+                'admin' => '/admin/index'
             ],
         ],
         'assetManager' => [

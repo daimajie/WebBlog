@@ -14,6 +14,7 @@ use yii\base\Exception;
 use yii\filters\AccessControl;
 use app\models\member\LoginForm;
 use app\models\member\Contact;
+use yii\helpers\Url;
 use yii\web\MethodNotAllowedHttpException;
 use yii\web\Response;
 use app\models\member\ForgetForm;
@@ -71,8 +72,8 @@ class IndexController extends BaseController
      */
     /*public function actionIndex()
     {
-        $this->layout = 'layout';
-        return $this->render('index');
+
+
     }*/
 
     /**

@@ -11,6 +11,9 @@ $name = $this->params['seo']['name'];
 $user = Yii::$app->user->identity;
 //用户头像
 $avatar = empty($user['image']) ? Yii::$app->params['member']['avatar'] : Helper::showImage($user['image']);
+
+$backend_ids = Yii::$app->params['RBAC']['RBAC_PERMISS'];
+$console = array_merge($backend_ids[1], $backend_ids[2]);
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -84,6 +87,12 @@ $avatar = empty($user['image']) ? Yii::$app->params['member']['avatar'] : Helper
                             'label' => '修改邮箱',
                             'icon' => 'circle-o',
                             'url' => ['/home/center/index/reset-email'],
+                        ],
+                        [
+                            'label' => '控制台',
+                            'icon' => 'circle-o',
+                            'url' => ['/admin'],
+                            'visible' => in_array(Yii::$app->user->id, $console),
                         ],
                     ],
                 ]

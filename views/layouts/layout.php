@@ -65,7 +65,7 @@ $this->params['sign'] = Html::encode($this->params['seo']['sign']);
                 <div  class="col-md-7">
                     <nav class="main-nav">
                         <ul>
-                            <li><a href="<?= Url::to(['/'])?>">首页</a></li>
+                            <li><a href="<?= Url::to(['/home/blog/index/index'])?>">首页</a></li>
                             <li><a href="<?= Url::to(['/home/topic/special/index'])?>">专题</a></li>
                             <li><a href="<?= Url::to(['/home/zones/notes/index'])?>">日记</a></li>
                             <li><a href="<?= Url::to(['/index/about'])?>">我的故事</a></li>
