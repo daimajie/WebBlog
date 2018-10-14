@@ -14,7 +14,7 @@ class CommentAsset extends AssetBundle
         'static/js/comment.js',
     ];
     public $depends = [
-        'app\assets\appAsset',
+        'app\assets\AppAsset',
     ];
 
     /**

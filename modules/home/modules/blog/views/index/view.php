@@ -100,7 +100,7 @@ $dependency = [
                                 ?>
                                 <div class="col-sm-6 col-md-4">
                                     <div class="related-post">
-                                        <img src="<?= !empty($item['image']) ? $item['image'] : $cover;?>" alt="related post">
+                                        <img src="<?= !empty($item['image']) ? Helper::showImage($item['image']) : $cover;?>" alt="related post">
                                         <h4><a href="<?= Url::current(['article_id'=>$item['id']])?>"><?= Html::encode($item['title'])?></a></h4>
                                         <p><i class="fa fa-clock-o"></i> <?= Helper::formatDate($item['created_at'])?></p>
                                     </div>
@@ -126,7 +126,7 @@ $dependency = [
                 <?= About::widget([])?>
                 <!-- 分类 -->
                 <?= Category::widget([])?>
-                <!-- 热门文章 -->
+                <!-- 热门文章 -->q
                 <?= Hot::widget([])?>
                 <!-- 标签 -->
                 <?= Tags::widget([])?>
