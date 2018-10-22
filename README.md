@@ -1,5 +1,5 @@
 <p align="center">
-    <h1 align="center">web blog (Yii2.0)</h1>
+    <h1 align="center">weblog (Yii2.0)</h1>
     <br>
 </p>
 
@@ -9,7 +9,7 @@
 
 1.克隆项目到本地
 ~~~
-git clone https://github.com/daimajie/WebBlog.git
+git clone https://github.com/daimajie/weblog.git
 ~~~
 
 2.安装依赖
